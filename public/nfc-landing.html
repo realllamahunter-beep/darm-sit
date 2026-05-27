@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>Victerv · Lliving Artifacts</title>
+<style>
+/* ═══════════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════════ */
+:root {
+  --black:  #05100e;
+  --b2:     #081a16;
+  --b3:     #0c2220;
+  --b4:     #112a27;
+  --white:  #e8faf5;
+  --cream:  #7eecd4;
+  --gold:   #00c9a0;
+  --gold2:  #2de8be;
+  --muted:  #4a7a6e;
+  --rule:   rgba(0,201,160,0.09);
+  --rule2:  rgba(0,201,160,0.18);
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'Outfit', system-ui, sans-serif;
+  --mono:   'Space Mono', monospace;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity:.55; mix-blend-mode:overlay;
+}
+.hidden { display:none !important; }
+
+/* ═══════════════════════════════════════════════════
+   GATE
+═══════════════════════════════════════════════════ */
+#gate {
+  position:fixed; inset:0; z-index:300; background:var(--black);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:40px 24px; text-align:center;
+}
+.gate-logo { margin-bottom:56px; }
+.gate-logo img { height:56px; width:auto; display:block; margin:0 auto; }
+.gate-vline { width:1px; height:72px; background:linear-gradient(to bottom,transparent,var(--rule2),transparent); margin:0 auto 52px; }
+.nfc-wrap { position:relative; width:96px; height:96px; margin:0 auto 52px; }
+.nfc-ring {
+  position:absolute; border-radius:50%;
+  top:50%; left:50%; transform:translate(-50%,-50%) scale(0);
+  border:1px solid rgba(0,201,160,.5);
+  animation:ring-out 2.6s ease-out infinite;
+}
+.nfc-ring:nth-child(1){width:30px;height:30px;animation-delay:0s}
+.nfc-ring:nth-child(2){width:62px;height:62px;animation-delay:.65s}
+.nfc-ring:nth-child(3){width:96px;height:96px;animation-delay:1.3s}
+@keyframes ring-out{0%{transform:translate(-50%,-50%) scale(.1);opacity:.9}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.nfc-core {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:18px; height:18px; border-radius:50%;
+  border:1.5px solid var(--gold); background:rgba(0,201,160,.08);
+}
+.nfc-core::after {
+  content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:7px; height:7px; border-radius:50%; background:var(--gold);
+  animation:core-pulse 1.8s ease-in-out infinite;
+}
+@keyframes core-pulse{0%,100%{opacity:1}50%{opacity:.15}}
+.gate-h { font-family:var(--serif); font-size:clamp(2.8rem,8vw,5.5rem); font-weight:700; line-height:1; letter-spacing:-1px; color:var(--white); margin-bottom:8px; }
+.gate-h em { font-style:italic; color:var(--gold2); }
+.gate-caps { font-family:var(--sans); font-size:.65rem; font-weight:500; letter-spacing:7px; text-transform:uppercase; color:var(--muted); margin-bottom:36px; }
+.gate-body { font-size:.88rem; color:var(--muted); line-height:1.85; max-width:380px; margin:0 auto 44px; }
+.gate-body strong { color:var(--cream); font-weight:500; }
+.gate-lock { display:inline-flex; align-items:center; gap:12px; border:1px solid rgba(245,240,232,.09); padding:13px 30px; font-family:var(--sans); font-size:.62rem; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--muted); }
+.gate-lock svg { opacity:.4; flex-shrink:0; }
+
+/* ═══════════════════════════════════════════════════
+   INVALID
+═══════════════════════════════════════════════════ */
+#invalid-screen {
+  position:fixed; inset:0; z-index:300; background:var(--black);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:32px; text-align:center;
+}
+.inv-pill { font-family:var(--sans); font-size:.6rem; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:#9b4040; border:1px solid rgba(155,64,64,.3); padding:8px 22px; margin-bottom:36px; animation:shake .45s ease .2s both; }
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.inv-h { font-family:var(--serif); font-size:clamp(3rem,9vw,6rem); font-weight:700; line-height:.95; letter-spacing:-1px; color:var(--white); margin-bottom:28px; }
+.inv-h em { font-style:italic; color:#c05050; }
+.inv-body { font-size:.9rem; color:var(--muted); line-height:1.85; max-width:400px; margin-bottom:36px; }
+.inv-body strong { color:var(--cream); font-weight:500; }
+.inv-note { font-family:var(--sans); font-size:.62rem; letter-spacing:3px; text-transform:uppercase; color:rgba(155,64,64,.65); }
+
+/* ═══════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════ */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; align-items:center; justify-content:space-between; padding:18px 52px; background:rgba(8,8,8,.93); backdrop-filter:blur(24px); border-bottom:1px solid var(--rule); }
+.nav-logo img { height:26px; width:auto; display:block; }
+.nav-links { list-style:none; display:flex; gap:36px; }
+.nav-links a { font-family:var(--sans); font-size:.6rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+.nav-links a:hover { color:var(--cream); }
+.nav-pill { font-family:var(--sans); font-size:.58rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--gold); border:1px solid rgba(0,201,160,.3); padding:6px 16px; }
+
+/* ═══════════════════════════════════════════════════
+   PAGE
+═══════════════════════════════════════════════════ */
+#artifact { padding-top:68px; }
+
+/* ── HERO ── */
+.hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; overflow:hidden; }
+.hero-left { display:flex; flex-direction:column; justify-content:center; padding:100px 68px 80px; border-right:1px solid var(--rule); }
+.hero-issue { font-family:var(--sans); font-size:.58rem; font-weight:500; letter-spacing:5px; text-transform:uppercase; color:var(--muted); margin-bottom:52px; display:flex; align-items:center; gap:16px; }
+.hero-issue::before { content:''; width:40px; height:1px; background:var(--muted); opacity:.5; }
+.hero-issue .accent { color:var(--gold); }
+.hero-title { font-family:var(--serif); font-size:clamp(3.5rem,6.5vw,7rem); font-weight:700; line-height:.9; letter-spacing:-2px; margin-bottom:14px; }
+.hero-title em { font-style:italic; color:var(--gold2); display:block; }
+.hero-sub { font-family:var(--sans); font-size:.62rem; font-weight:500; letter-spacing:9px; text-transform:uppercase; color:var(--muted); margin-bottom:52px; }
+.verified-bar { display:flex; align-items:center; gap:16px; padding:16px 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin-bottom:44px; }
+.v-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); animation:blink 2s ease-in-out infinite; }
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.v-label { font-family:var(--sans); font-size:.58rem; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--gold); }
+.v-uid { margin-left:auto; font-family:var(--mono); font-size:.55rem; color:var(--muted); letter-spacing:1px; }
+.hero-desc { font-size:.9rem; color:var(--muted); line-height:1.9; max-width:400px; margin-bottom:36px; }
+.hero-desc strong { color:var(--cream); font-weight:500; }
+.tags { display:flex; flex-wrap:wrap; gap:8px; }
+.tag { font-family:var(--sans); font-size:.56rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--muted); border:1px solid var(--rule2); padding:6px 14px; }
+.tag.gold { color:var(--gold); border-color:rgba(0,201,160,.3); }
+
+/* ════════════════════════════════════════════════════════
+   3-D CARD  —  portrait front · landscape back
+════════════════════════════════════════════════════════ */
+.hero-right {
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; padding:100px 68px 80px; background:var(--b2);
+}
+
+/* Outer sizing shell — morphs width on flip */
+.card-3d {
+  perspective: 1400px;
+  width: 100%;
+  max-width: 310px;         /* portrait width */
+  cursor: pointer;
+  user-select: none;
+  transition: max-width 0.9s cubic-bezier(.4,0,.2,1);
+}
+.card-3d.flipped {
+  max-width: 500px;         /* landscape width */
+}
+
+/* Inner rotating panel — morphs aspect-ratio on flip */
+.card-inner {
+  position: relative;
+  padding-bottom: 142%;     /* portrait  ~7:10 */
+  transform-style: preserve-3d;
+  animation: card-float 18s ease-in-out infinite;
+  transition: padding-bottom 0.9s cubic-bezier(.4,0,.2,1);
+}
+.card-3d.flipped .card-inner {
+  padding-bottom: 63%;      /* landscape ~16:10 */
+}
+.card-3d:hover .card-inner { animation-play-state: paused; }
+
+/* Gentle floating tilt — no auto-flip */
+@keyframes card-float {
+  0%,100% { transform: rotateY(-5deg) rotateX(3deg); }
+  25%     { transform: rotateY( 5deg) rotateX(-2deg); }
+  50%     { transform: rotateY( 7deg) rotateX( 2deg); }
+  75%     { transform: rotateY(-3deg) rotateX( 1deg); }
+}
+
+/* Gold sheen sweep that plays on every flip */
+.card-inner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(0,201,160,0.22) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  z-index: 20;
+  pointer-events: none;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transition: transform 0s;
+}
+.card-inner.sheen::before {
+  transform: translateX(120%);
+  transition: transform 0.75s ease;
+}
+
+/* Card faces */
+.card-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ── FRONT (portrait) ── */
+.card-front {
+  background: var(--b3);
+  border: 1px solid rgba(245,240,232,.07);
+  box-shadow:
+    0 70px 140px rgba(0,0,0,.85),
+    0 0 0 1px rgba(0,201,160,.10),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  display: flex;
+  flex-direction: column;
+}
+.card-photo {
+  flex: 1;
+  background: var(--b4);
+  overflow: hidden;
+  position: relative;
+  min-height: 60%;
+}
+.card-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover; opacity: .88; display: block;
+}
+.card-photo-empty {
+  position: absolute; inset: 0;
+  display: none;           /* hidden until image fails */
+  flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+  background: linear-gradient(145deg,#1a1210,#0d0808);
+}
+.card-photo-empty span:first-child { font-size:3rem; opacity:.12; }
+.card-photo-empty span:last-child  { font-family:var(--serif); font-size:1rem; font-weight:700; color:rgba(245,240,232,.12); letter-spacing:3px; }
+.card-bottom {
+  padding: 16px 20px;
+  background: var(--b3);
+  border-top: 1px solid rgba(245,240,232,.06);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.card-bottom-logo img { height:18px; width:auto; display:block; opacity:.45; }
+.card-edition { font-family:var(--sans); font-size:.48rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--gold); text-align:right; line-height:1.6; }
+.card-chip {
+  width:28px; height:20px;
+  background: linear-gradient(135deg,#00c9a0,#2de8be,#00a882);
+  border-radius:4px; box-shadow:0 2px 8px rgba(0,201,160,.3);
+  position:relative; flex-shrink:0;
+}
+.card-chip::before { content:''; position:absolute; inset:4px; border:.5px solid rgba(0,0,0,.35); border-radius:2px; }
+.card-serial { position:absolute; top:14px; right:16px; font-family:var(--mono); font-size:.48rem; color:rgba(245,240,232,.18); letter-spacing:1px; }
+
+/* ── BACK (landscape) ── */
+.card-back {
+  background: #041210;
+  border: 1px solid rgba(245,240,232,.07);
+  box-shadow:
+    0 70px 140px rgba(0,0,0,.85),
+    0 0 0 1px rgba(0,201,160,.10);
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+
+/* Full-bleed back image — IS the card design */
+.back-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  z-index: 0;
+  display: block;
+}
+
+/* Tiny UID watermark — bottom-right corner only */
+.back-uid-stamp {
+  position: absolute;
+  bottom: 8px; right: 10px;
+  z-index: 3;
+  font-family: var(--mono);
+  font-size: .38rem;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,.28);
+  background: rgba(0,0,0,.35);
+  padding: 3px 7px;
+  border-radius: 3px;
+  backdrop-filter: blur(4px);
+}
+
+/* Tap-count badge — bottom-left */
+.back-tap-stamp {
+  position: absolute;
+  bottom: 8px; left: 10px;
+  z-index: 3;
+  font-family: var(--mono);
+  font-size: .38rem;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,.28);
+  background: rgba(0,0,0,.35);
+  padding: 3px 7px;
+  border-radius: 3px;
+  backdrop-filter: blur(4px);
+}
+
+/* hide unused back-content if present */
+.back-content { display: none; }
+
+/* hint + edition strip */
+.card-hint { margin-top:18px; font-family:var(--sans); font-size:.56rem; letter-spacing:3px; text-transform:uppercase; color:rgba(245,240,232,.13); text-align:center; }
+.edition-sep { display:flex; align-items:center; gap:14px; margin-top:30px; width:100%; max-width:310px; }
+.es-line { flex:1; height:1px; background:var(--rule); }
+.es-text { font-family:var(--sans); font-size:.56rem; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--gold); white-space:nowrap; }
+
+/* ── DATA STRIP ── */
+.data-strip { border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); display:grid; grid-template-columns:repeat(4,1fr); }
+.ds-item { padding:36px 44px; border-right:1px solid var(--rule); }
+.ds-item:last-child { border-right:none; }
+.ds-num { font-family:var(--serif); font-size:3rem; font-weight:700; font-style:italic; line-height:1; margin-bottom:8px; }
+.ds-num span { color:var(--gold2); }
+.ds-label { font-family:var(--sans); font-size:.58rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+
+/* ── SECTION HEADERS ── */
+.s-eye { font-family:var(--sans); font-size:.58rem; font-weight:500; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:16px; }
+.s-eye::before { content:''; width:36px; height:1px; background:var(--gold); opacity:.6; }
+.s-title { font-family:var(--serif); font-size:clamp(2.8rem,5vw,5.5rem); font-weight:700; line-height:.95; letter-spacing:-1px; color:var(--white); margin-bottom:16px; }
+.s-title em { font-style:italic; color:var(--gold2); }
+
+/* ── AUTH ── */
+.auth-wrap { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--rule); }
+.auth-left { padding:88px 68px; border-right:1px solid var(--rule); display:flex; flex-direction:column; justify-content:center; }
+.auth-body { font-size:.88rem; color:var(--muted); line-height:1.9; max-width:400px; margin-top:22px; }
+.auth-body strong { color:var(--cream); font-weight:500; }
+.auth-right { padding:88px 68px; background:var(--b2); display:flex; flex-direction:column; justify-content:center; }
+.rec-row { display:flex; justify-content:space-between; align-items:baseline; padding:15px 0; border-bottom:1px solid var(--rule); font-size:.82rem; }
+.rec-row:first-child { border-top:1px solid var(--rule); }
+.rk { color:var(--muted); font-weight:400; }
+.rv { color:var(--white); font-weight:500; text-align:right; }
+.rv.mono { font-family:var(--mono); font-size:.68rem; color:var(--cream); }
+.rv.gold { color:var(--gold2); }
+.rv.ok   { color:#7ecf8f; }
+.rv.bad  { color:#bf5555; }
+.cert-box { margin-top:40px; border:1px solid rgba(0,201,160,.18); padding:32px; position:relative; }
+.cert-box::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+.cert-title { font-family:var(--serif); font-size:1.8rem; font-weight:700; font-style:italic; color:var(--gold2); margin-bottom:12px; }
+.cert-body { font-size:.8rem; color:var(--muted); line-height:1.75; }
+
+/* ── BTS ── */
+.bts-wrap { border-top:1px solid var(--rule); background:var(--black); }
+.bts-header { padding:88px 68px 0; max-width:700px; }
+.bts-intro { font-size:.88rem; color:var(--muted); line-height:1.9; max-width:520px; margin-top:18px; }
+
+/* ══════════════════════════════════════════════
+   GALLERY  —  Netflix-style horizontal row
+══════════════════════════════════════════════ */
+.gallery-wrap { border-top:1px solid var(--rule); background:var(--black); }
+.gallery-header { padding:88px 68px 0; }
+
+/* ── Row shell ── */
+.nf-row-outer {
+  position: relative;
+  margin-top: 48px;
+  padding-bottom: 80px;
+}
+
+/* fade + arrow zone on each side */
+.nf-edge {
+  position: absolute; top: 0; bottom: 80px;
+  width: 96px; z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+}
+.nf-edge.left  { left: 0;  background: linear-gradient(to right, var(--black) 30%, transparent); }
+.nf-edge.right { right: 0; background: linear-gradient(to left,  var(--black) 30%, transparent); }
+
+/* arrow buttons */
+.nf-arrow {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid rgba(0,201,160,.35);
+  background: rgba(8,8,8,.85);
+  backdrop-filter: blur(8px);
+  color: var(--gold);
+  font-size: 1.1rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; user-select: none;
+  transition: background .2s, border-color .2s, transform .15s;
+  flex-shrink: 0;
+}
+.nf-arrow:hover {
+  background: rgba(0,201,160,.18);
+  border-color: var(--gold);
+  transform: scale(1.08);
+}
+.nf-arrow:active { transform: scale(.96); }
+
+/* scroll track */
+.nf-row {
+  display: flex;
+  gap: 10px;
+  padding: 30px 96px 30px;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-behavior: auto;   /* JS handles smooth */
+}
+.nf-row::-webkit-scrollbar { display: none; }
+
+/* ── Card — all uniform 16:9 ── */
+.nf-card {
+  position: relative;
+  flex-shrink: 0;
+  width: 320px;
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+  overflow: visible;
+  cursor: pointer;
+  transition: transform .28s cubic-bezier(.2,0,.1,1), z-index 0s .28s;
+  z-index: 1;
+}
+.nf-card:hover {
+  transform: scale(1.12);
+  z-index: 30;
+  transition: transform .28s cubic-bezier(.2,0,.1,1), z-index 0s;
+}
+
+/* inner clip */
+.nf-card-inner {
+  position: absolute; inset: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,.5);
+  transition: box-shadow .28s;
+}
+.nf-card:hover .nf-card-inner {
+  box-shadow: 0 16px 48px rgba(0,0,0,.85), 0 0 0 1px rgba(0,201,160,.28);
+}
+
+/* media */
+.nf-card-inner img,
+.nf-card-inner video {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  opacity: .65; transition: opacity .28s;
+}
+.nf-card:hover .nf-card-inner img,
+.nf-card:hover .nf-card-inner video { opacity: 1; }
+
+/* youtube iframe */
+.nf-card-inner iframe {
+  width: 100%; height: 100%; border: none; display: block;
+}
+
+/* gradient overlay */
+.nf-overlay {
+  position: absolute; inset: 0; border-radius: 4px;
+  background: linear-gradient(to top, rgba(0,0,0,.92) 0%, rgba(0,0,0,.4) 42%, transparent 72%);
+  opacity: 0; transition: opacity .28s;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 14px 14px 12px;
+  pointer-events: none; z-index: 4;
+}
+.nf-card:hover .nf-overlay { opacity: 1; }
+.nf-card.nf-video .nf-overlay { opacity: 1; }
+
+/* bottom title bar (resting) */
+.nf-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 0 10px 8px;
+  background: linear-gradient(to top, rgba(0,0,0,.72), transparent);
+  border-radius: 0 0 4px 4px;
+  pointer-events: none; z-index: 3;
+}
+.nf-bar-title {
+  font-family: var(--sans); font-size: .48rem; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(245,240,232,.5); line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* hover headline & credit */
+.nf-headline {
+  font-family: var(--sans); font-size: .6rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--white); line-height: 1.35; margin-bottom: 5px;
+}
+.nf-credit {
+  font-family: var(--mono); font-size: .45rem; letter-spacing: 1.5px;
+  color: var(--gold); opacity: .9;
+}
+
+/* external link arrow */
+a.nf-card { text-decoration: none; display: block; }
+a.nf-card::after {
+  content: '↗'; position: absolute; top: 8px; right: 10px;
+  font-size: .7rem; color: var(--gold);
+  opacity: 0; transition: opacity .2s; z-index: 7; pointer-events: none;
+}
+a.nf-card:hover::after { opacity: 1; }
+
+/* ── YouTube badge ── */
+.nf-yt-badge {
+  position: absolute; top: 8px; left: 10px; z-index: 8;
+  font-family: var(--sans); font-size: .44rem; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--white); background: rgba(0,201,160,.85);
+  padding: 3px 8px; border-radius: 2px; pointer-events: none;
+}
+.nf-card.nf-yt { cursor: default; }
+.nf-card.nf-yt:hover { transform: scale(1.06); }
+
+/* ── Volume button ── */
+.nf-vol {
+  position: absolute; top: 8px; right: 10px; z-index: 8;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid rgba(245,240,232,.3);
+  background: rgba(0,0,0,.6); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; opacity: 0;
+  transition: opacity .22s, background .2s, border-color .2s;
+  color: var(--white);
+}
+.nf-card:hover .nf-vol { opacity: 1; }
+.nf-vol:hover { background: rgba(0,201,160,.25); border-color: var(--gold); }
+.nf-vol svg { pointer-events: none; }
+
+/* ── Responsive ── */
+@media(max-width:1100px){
+  .nf-row { padding-left: 72px; padding-right: 72px; }
+  .nf-card { width: 270px; }
+  .gallery-header { padding: 68px 36px 0; }
+}
+@media(max-width:680px){
+  .nf-row { padding-left: 52px; padding-right: 52px; gap: 8px; }
+  .nf-card { width: 200px; }
+  .gallery-header { padding: 52px 24px 0; }
+  .nf-edge { width: 52px; }
+  .nf-arrow { width: 34px; height: 34px; font-size: .9rem; }
+}
+
+/* ── TECH ── */
+.tech-wrap { border-top:1px solid var(--rule); display:grid; grid-template-columns:1fr 1fr; }
+.tech-left { padding:88px 68px; border-right:1px solid var(--rule); display:flex; flex-direction:column; justify-content:center; }
+.tech-feats { display:flex; flex-direction:column; gap:36px; margin-top:44px; }
+.tech-feat { padding-left:24px; border-left:1px solid rgba(0,201,160,.35); }
+.tech-feat h4 { font-family:var(--sans); font-size:.65rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--cream); margin-bottom:10px; }
+.tech-feat p { font-size:.84rem; color:var(--muted); line-height:1.75; }
+.tech-feat p strong { color:var(--cream); font-weight:500; }
+.tech-right { padding:88px 68px; background:var(--b2); display:flex; flex-direction:column; justify-content:center; }
+.tech-glyph { font-family:var(--serif); font-size:5rem; font-weight:300; font-style:italic; color:rgba(184,146,42,.14); text-align:center; margin-bottom:44px; }
+.spec-item { display:flex; justify-content:space-between; align-items:baseline; padding:13px 0; border-bottom:1px solid var(--rule); font-size:.82rem; }
+.spec-item:first-child { border-top:1px solid var(--rule); }
+.sk { color:var(--muted); }
+.sv { font-family:var(--mono); font-size:.7rem; color:var(--cream); text-align:right; }
+
+/* ── FOOTER ── */
+footer { border-top:1px solid var(--rule); display:grid; grid-template-columns:1fr 1fr 1fr; }
+.f-col { padding:52px 68px; border-right:1px solid var(--rule); }
+.f-col:last-child { border-right:none; }
+.f-logo img { height:26px; width:auto; opacity:.32; display:block; margin-bottom:20px; }
+.f-copy { font-size:.74rem; color:var(--muted); line-height:1.9; }
+.f-eye { font-family:var(--sans); font-size:.56rem; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--muted); margin-bottom:20px; }
+.f-stat { font-family:var(--serif); font-size:2.2rem; font-weight:700; font-style:italic; color:var(--gold2); margin-bottom:12px; }
+.f-note { font-size:.76rem; color:var(--muted); line-height:1.8; }
+.f-uid { font-family:var(--mono); font-size:.56rem; letter-spacing:2px; color:rgba(0,201,160,.3); margin-top:16px; }
+
+/* ── FADE ── */
+.fade-up { opacity:0; transform:translateY(22px); transition:opacity .8s ease,transform .8s ease; }
+.fade-up.visible { opacity:1; transform:none; }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media(max-width:1100px){
+  nav{padding:16px 28px}
+  .hero{grid-template-columns:1fr}
+  .hero-left{padding:88px 36px 48px;border-right:none;border-bottom:1px solid var(--rule)}
+  .hero-right{padding:52px 36px 80px}
+  .data-strip{grid-template-columns:1fr 1fr}
+  .ds-item:nth-child(2){border-right:none}
+  .ds-item:nth-child(3){border-top:1px solid var(--rule)}
+  .auth-wrap{grid-template-columns:1fr}
+  .auth-left{padding:68px 36px 44px;border-right:none;border-bottom:1px solid var(--rule)}
+  .auth-right{padding:44px 36px 68px}
+  .bts-header{padding:68px 36px 0}
+  .bts-row-1,.bts-row-2{grid-template-columns:1fr}
+  .bts-card{border-right:none;border-bottom:1px solid var(--rule)}
+  .gallery-header{padding:68px 36px 0}
+  .gallery-grid{grid-template-columns:repeat(4,1fr)}
+  .gi:nth-child(1){grid-column:1/3;grid-row:auto;min-height:220px}
+  .gi:nth-child(n){grid-column:auto;grid-row:auto}
+  .tech-wrap{grid-template-columns:1fr}
+  .tech-left{padding:68px 36px 44px;border-right:none;border-bottom:1px solid var(--rule)}
+  .tech-right{padding:44px 36px 68px}
+  footer{grid-template-columns:1fr}
+  .f-col{padding:44px 36px;border-right:none;border-bottom:1px solid var(--rule)}
+  .f-col:last-child{border-bottom:none}
+}
+@media(max-width:680px){
+  nav{padding:14px 20px}.nav-links{display:none}
+  .hero-left{padding:80px 24px 40px}.hero-right{padding:44px 24px 64px}
+  .card-3d{max-width:240px}
+  .card-3d.flipped{max-width:380px}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gi{aspect-ratio:1;min-height:unset}
+  .tech-left,.tech-right{padding:52px 24px}
+  footer .f-col{padding:36px 24px}
+}
+</style>
+</head>
+<body>
+
+<!--
+╔══════════════════════════════════════════════════════════════╗
+║                    IMAGE CONFIGURATION                       ║
+║                                                              ║
+║  Edit the URLs in window.CARD_IMAGES below.                  ║
+║  Paste a full URL, a relative path, or a data: URI.          ║
+║  That's the ONLY place you need to change images.            ║
+╚══════════════════════════════════════════════════════════════╝
+-->
+<script>
+window.CARD_IMAGES = {
+
+  /* ── Logos ───────────────────────────────────────────────── */
+  logo:           'Lliving_Artifacts_Logo.png',
+  logoAlt:        'Lliving_Artifacts_Logo.png',
+
+  /* ── Hero Card ───────────────────────────────────────────── */
+  cardFront:      'front-card.jpg',          /* portrait  / vertical   */
+  cardBack:       'FNCS_CARDS_BACK.jpg',     /* landscape / horizontal */
+
+  /* ── Behind The Scenes ───────────────────────────────────── */
+  btsMain:        'images/bts-main-thumb.jpg',
+  bts2:           'images/bts-2.jpg',
+  bts3:           'images/bts-3.jpg',
+  bts4:           'images/bts-4-thumb.jpg',
+  bts5:           'images/bts-5-thumb.jpg',
+  bts6:           'images/bts-6.jpg',
+
+  /* ── Photo Gallery ───────────────────────────────────────── */
+  gallery1:       'VicterV_Qual_Grands_Website.webp',
+  gallery2:       'VicterV_FNCS_Pickaxe_Website.png',
+  gallery3:       'VicterV_Qual_Heats_Website.png',
+  gallery4:       'VicterV_FNCS_Opens_Website.png',
+  gallery5:       '',
+  gallery6:       '',
+  gallery7:       '',
+  gallery8:       '',
+
+  /* ── FNCS Major 1 Summit Section ─────────────────────────── */
+  fncsPlaceholder: 'FNCS_Placeholder_Website.png',
+
+};
+</script>
+
+<!-- ══ GATE ══ -->
+<div id="gate">
+  <div class="gate-logo">
+    <img data-img="logo" src="" alt="Llama Hunter · Lliving Artifacts">
+  </div>
+  <div class="gate-vline"></div>
+  <div class="nfc-wrap">
+    <div class="nfc-ring"></div>
+    <div class="nfc-ring"></div>
+    <div class="nfc-ring"></div>
+    <div class="nfc-core"></div>
+  </div>
+  <h1 class="gate-h">Tap to <em>Enter</em></h1>
+  <p class="gate-caps">Physical Access Only</p>
+  <p class="gate-body">This page is sealed to a <strong>physical collector card</strong>. Each tap generates a one-time AES-128 cryptographic token that cannot be copied, forwarded, or guessed.</p>
+  <div class="gate-lock">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    No card · No access · No exceptions
+  </div>
+</div>
+
+<!-- ══ INVALID ══ -->
+<div id="invalid-screen" class="hidden">
+  <div class="inv-pill">Verification Failed</div>
+  <h1 class="inv-h">Invalid <em>Tap</em></h1>
+  <p class="inv-body">This link has been used or wasn't generated by a <strong>genuine Llama Hunter artifact</strong>. The chip creates a new unique signature every tap.</p>
+  <p class="inv-note">Tap your physical card again to generate a fresh link</p>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img data-img="logo" src="" alt="Llama Hunter · Lliving Artifacts">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#auth">Verify</a></li>
+    <li><a href="#bts">Behind Scenes</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#fncs-summit">Summit</a></li>
+    <li><a href="#tech">The Chip</a></li>
+  </ul>
+  <div class="nav-pill" id="nav-pill">● Verified</div>
+</nav>
+
+<!-- ══ ARTIFACT PAGE ══ -->
+<div id="artifact" class="hidden">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-issue">
+        FNCS MAJOR 1 SUMMIT · 2026 · DÜSSELDORF, GERMANY
+        <span class="accent">LHPCO-FNCSM1S2026-VicterV</span>
+      </div>
+      <h1 class="hero-title">
+        VicterV
+        <em></em>
+      </h1>
+      <p class="hero-sub">One of one</p>
+      <div class="verified-bar">
+        <div class="v-dot"></div>
+        <span class="v-label">Chip Authenticated</span>
+        <span class="v-uid" id="hero-uid">UID: —</span>
+      </div>
+      <p class="hero-desc">VicterV</p>
+      <div class="tags">
+        <span class="tag gold">FIRST EDITION</span>
+        <span class="tag">%%TAG_1%%</span>
+        <span class="tag">%%TAG_2%%</span>
+        <span class="tag">AES-128</span>
+        <span class="tag">NTAG 424 DNA</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+
+      <!-- 3D CARD -->
+      <div class="card-3d" id="card3d" title="Click to flip">
+        <div class="card-inner" id="cardInner">
+
+          <!-- ── FRONT face (portrait / vertical) ── -->
+          <div class="card-face card-front" style="background:#041210;">
+            <div class="card-serial">VICTERV 1/1</div>
+            <div class="card-photo" style="position:absolute; inset:0;">
+              <img data-img="cardFront" src="" alt="Card Front"
+                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;display:block;"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="card-photo-empty">
+                <span>🦙</span>
+                <span>card-front.jpg</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── BACK face (landscape / horizontal) ── -->
+          <div class="card-face card-back">
+
+            <!-- The card back IS the image — full bleed, full opacity -->
+            <img class="back-bg" data-img="cardBack" src="" alt="Card Back">
+
+            <!-- Tiny live-data stamps -->
+            <div class="back-uid-stamp" id="back-uid">—</div>
+            <div class="back-tap-stamp">TAP #<span id="back-tap">—</span></div>
+
+          </div>
+
+        </div><!-- /.card-inner -->
+      </div><!-- /.card-3d -->
+
+      <div class="edition-sep" style="max-width:500px;">
+        <div class="es-line"></div>
+        <div class="es-text">Tap <span id="es-ctr">—</span> · 1/1</div>
+        <div class="es-line"></div>
+      </div>
+      <div class="card-hint">Click to flip · Hover to pause</div>
+
+    </div>
+  </section>
+
+  <!-- ── DATA STRIP ── -->
+  <div class="data-strip">
+    <div class="ds-item"><div class="ds-num">1<span>/1</span></div><div class="ds-label">Edition Size</div></div>
+    <div class="ds-item"><div class="ds-num" id="ds-taps">—</div><div class="ds-label">Total Taps</div></div>
+    <div class="ds-item"><div class="ds-num">128</div><div class="ds-label">AES Bit Key</div></div>
+    <div class="ds-item"><div class="ds-num">∞</div><div class="ds-label">Verifications</div></div>
+  </div>
+
+  <!-- ── AUTH ── -->
+  <section class="auth-wrap" id="auth">
+    <div class="auth-left fade-up">
+      <div class="s-eye">Cryptographically Proven</div>
+      <h2 class="s-title">Chip <em>Auth</em></h2>
+      <p class="auth-body">This card doesn't need a blockchain. The NXP NTAG 424 DNA chip performs <strong>hardware cryptographic signing</strong> on every tap. The signature changes every single time — making it physically impossible to copy or replay.</p>
+    </div>
+    <div class="auth-right fade-up">
+      <div class="rec-row"><span class="rk">Status</span>     <span class="rv ok">✓ Authentic</span></div>
+      <div class="rec-row"><span class="rk">Chip UID</span>   <span class="rv mono" id="auth-uid">—</span></div>
+      <div class="rec-row"><span class="rk">Tap Count</span>  <span class="rv gold" id="auth-tap">—</span></div>
+      <div class="rec-row"><span class="rk">Chip Model</span> <span class="rv">NXP NTAG 424 DNA</span></div>
+      <div class="rec-row"><span class="rk">Algorithm</span>  <span class="rv mono">AES-128 · CMAC</span></div>
+      <div class="rec-row"><span class="rk">Replay Safe</span><span class="rv ok">Yes — Counter Verified</span></div>
+      <div class="rec-row"><span class="rk">Forgeable</span>  <span class="rv bad">Impossible</span></div>
+      <div class="cert-box">
+        <div class="cert-title">Certified Original</div>
+        <p class="cert-body">This artifact has passed cryptographic hardware verification. The chip confirms it is the genuine physical object — not a screenshot, copy, or forwarded link.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BEHIND THE SCENES ── -->
+  <section class="bts-wrap" id="bts">
+    <div class="bts-header fade-up">
+      <div class="s-eye">Exclusive Holder Access</div>
+      <h2 class="s-title">Behind the <em>Scenes</em></h2>
+      <p class="bts-intro">VicterV</p>
+    </div>
+
+    <div class="nf-row-outer fade-up">
+
+      <!-- Left arrow + fade -->
+      <div class="nf-edge left">
+        <button class="nf-arrow" id="btsPrev" aria-label="Scroll left">&#8592;</button>
+      </div>
+
+      <!-- Right arrow + fade -->
+      <div class="nf-edge right">
+        <button class="nf-arrow" id="btsNext" aria-label="Scroll right">&#8594;</button>
+      </div>
+
+      <div class="nf-row" id="btsRow">
+
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="btsMain" src="" alt="%%BTS_MAIN_TITLE%%">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">%%BTS_MAIN_TITLE%%</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">%%BTS_MAIN_TITLE%%</div>
+            <div class="nf-credit">%%BTS_MAIN_TAG%%</div>
+          </div>
+        </div>
+
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="bts2" src="" alt="%%BTS_2_TITLE%%">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">%%BTS_2_TITLE%%</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">%%BTS_2_TITLE%%</div>
+            <div class="nf-credit">%%BTS_2_TAG%%</div>
+          </div>
+        </div>
+
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="bts3" src="" alt="%%BTS_3_TITLE%%">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">%%BTS_3_TITLE%%</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">%%BTS_3_TITLE%%</div>
+            <div class="nf-credit">%%BTS_3_TAG%%</div>
+          </div>
+        </div>
+
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="bts4" src="" alt="%%BTS_4_TITLE%%">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">%%BTS_4_TITLE%%</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">%%BTS_4_TITLE%%</div>
+            <div class="nf-credit">%%BTS_4_TAG%%</div>
+          </div>
+        </div>
+
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="bts5" src="" alt="%%BTS_5_TITLE%%">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">%%BTS_5_TITLE%%</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">%%BTS_5_TITLE%%</div>
+            <div class="nf-credit">%%BTS_5_TAG%%</div>
+          </div>
+        </div>
+
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="bts6" src="" alt="%%BTS_6_TITLE%%">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">%%BTS_6_TITLE%%</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">%%BTS_6_TITLE%%</div>
+            <div class="nf-credit">%%BTS_6_TAG%%</div>
+          </div>
+        </div>
+
+      </div><!-- /.nf-row -->
+    </div><!-- /.nf-row-outer -->
+  </section>
+
+  <!-- ── GALLERY ── -->
+  <section class="gallery-wrap" id="gallery">
+    <div class="gallery-header fade-up">
+      <div class="s-eye">Physical Artifact</div>
+      <h2 class="s-title">Road To <em>Major 1 Summit</em></h2>
+    </div>
+    <div class="nf-row-outer fade-up">
+
+      <!-- Left arrow + fade -->
+      <div class="nf-edge left">
+        <button class="nf-arrow" id="nfPrev" aria-label="Scroll left">&#8592;</button>
+      </div>
+
+      <!-- Right arrow + fade -->
+      <div class="nf-edge right">
+        <button class="nf-arrow" id="nfNext" aria-label="Scroll right">&#8594;</button>
+      </div>
+
+      <div class="nf-row" id="nfRow">
+
+        <!-- 1 — FNCS Grands scoreboard -->
+        <a class="nf-card" href="https://x.com/VicterV_/status/2048616744860987824" target="_blank" rel="noopener">
+          <div class="nf-card-inner">
+            <img data-img="gallery1" src="" alt="($30,000) 1ST PLACE FNCS GRANDS">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">($30,000) 1ST PLACE FNCS GRANDS</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">($30,000) 1ST PLACE FNCS GRANDS</div>
+            <div class="nf-credit">(𝕏/Twitter @VicterV_)</div>
+          </div>
+        </a>
+
+        <!-- 2 — FNCS Pickaxe -->
+        <a class="nf-card" href="https://x.com/VicterV_/status/2048907712201892018" target="_blank" rel="noopener">
+          <div class="nf-card-inner">
+            <img data-img="gallery2" src="" alt="first of many">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">first of many</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">first of many</div>
+            <div class="nf-credit">(𝕏/Twitter @VicterV_)</div>
+          </div>
+        </a>
+
+        <!-- 3 — Qual Heats scoreboard -->
+        <a class="nf-card" href="https://x.com/VicterV_/status/2045703266353496572" target="_blank" rel="noopener">
+          <div class="nf-card-inner">
+            <img data-img="gallery3" src="" alt="QUALED HEATS SANDY IN FINALS">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">QUALED HEATS SANDY IN FINALS</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">QUALED HEATS SANDY IN FINALS</div>
+            <div class="nf-credit">(𝕏/Twitter @VicterV_)</div>
+          </div>
+        </a>
+
+        <!-- 4 — FNCS Opens scoreboard -->
+        <a class="nf-card" href="https://x.com/VicterV_/status/2041725883707486278" target="_blank" rel="noopener">
+          <div class="nf-card-inner">
+            <img data-img="gallery4" src="" alt="1ST WEST FNCS OPENS">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">1ST WEST FNCS OPENS @Khanada</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">1ST WEST FNCS OPENS <a href="https://x.com/Khanada" target="_blank" rel="noopener" style="color:var(--gold2);text-decoration:none;">@Khanada</a> SANDY STRIP IN HEAT 1</div>
+            <div class="nf-credit">(𝕏/Twitter @VicterV_)</div>
+          </div>
+        </a>
+
+        <!-- 5 — MP4 video with volume toggle -->
+        <div class="nf-card nf-video">
+          <div class="nf-card-inner">
+            <video id="nfVid" autoplay muted loop playsinline
+              style="width:100%;height:100%;object-fit:cover;display:block;opacity:.85;">
+              <source src="Pops_VicterV_Website.mp4" type="video/mp4">
+            </video>
+          </div>
+          <!-- volume button -->
+          <button class="nf-vol" id="nfVolBtn" aria-label="Toggle volume">
+            <!-- muted icon (default) -->
+            <svg id="nfVolIcon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/>
+              <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          </button>
+          <div class="nf-overlay">
+            <div class="nf-headline">Big Vic in the building!!</div>
+          </div>
+        </div>
+
+        <!-- 6 — YouTube thumbnail → YT link -->
+        <a class="nf-card nf-yt" href="https://www.youtube.com/watch?v=3gMEPyQsSYU&t=9" target="_blank" rel="noopener">
+          <div class="nf-card-inner">
+            <img src="https://img.youtube.com/vi/3gMEPyQsSYU/maxresdefault.jpg" alt="Watch on YouTube"
+                 onerror="this.src='https://img.youtube.com/vi/3gMEPyQsSYU/hqdefault.jpg'">
+          </div>
+          <div class="nf-yt-badge">▶ YouTube</div>
+          <div class="nf-bar"><div class="nf-bar-title">Watch on YouTube</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">Watch on YouTube</div>
+            <div class="nf-credit">(YouTube)</div>
+          </div>
+        </a>
+
+      </div><!-- /.nf-row -->
+    </div><!-- /.nf-row-outer -->
+  </section>
+
+  <!-- ── FNCS MAJOR 1 SUMMIT ── -->
+  <section class="gallery-wrap" id="fncs-summit">
+    <div class="gallery-header fade-up">
+      <div class="s-eye">Düsseldorf · 2026</div>
+      <h2 class="s-title">FNCS <em>Major 1 Summit</em></h2>
+    </div>
+    <div class="nf-row-outer fade-up">
+
+      <!-- Left arrow + fade -->
+      <div class="nf-edge left">
+        <button class="nf-arrow" id="summitPrev" aria-label="Scroll left">&#8592;</button>
+      </div>
+
+      <!-- Right arrow + fade -->
+      <div class="nf-edge right">
+        <button class="nf-arrow" id="summitNext" aria-label="Scroll right">&#8594;</button>
+      </div>
+
+      <div class="nf-row" id="summitRow">
+
+        <!-- 1 -->
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
+            <div class="nf-credit">Düsseldorf, Germany</div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
+            <div class="nf-credit">Düsseldorf, Germany</div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
+            <div class="nf-credit">Düsseldorf, Germany</div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
+            <div class="nf-credit">Düsseldorf, Germany</div>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="nf-card">
+          <div class="nf-card-inner">
+            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
+          </div>
+          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
+          <div class="nf-overlay">
+            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
+            <div class="nf-credit">Düsseldorf, Germany</div>
+          </div>
+        </div>
+
+      </div><!-- /.nf-row -->
+    </div><!-- /.nf-row-outer -->
+  </section>
+
+  <section class="tech-wrap" id="tech">
+    <div class="tech-left fade-up">
+      <div class="s-eye">Why It Cannot Be Faked</div>
+      <h2 class="s-title">The <em>Chip</em></h2>
+      <div class="tech-feats">
+        <div class="tech-feat">
+          <h4>Cryptographic Signing</h4>
+          <p>Every tap sends a unique <strong>CMAC signature</strong> generated from the chip's locked AES-128 key. The server rejects anything not freshly signed.</p>
+        </div>
+        <div class="tech-feat">
+          <h4>Monotonic Counter</h4>
+          <p>The chip's counter increments every read and <strong>can never decrease</strong>. Replayed links are rejected instantly.</p>
+        </div>
+        <div class="tech-feat">
+          <h4>Hardware-Locked Key</h4>
+          <p>The AES key lives in the chip's <strong>secure memory</strong> — it cannot be read out even with professional equipment. The card is the key.</p>
+        </div>
+        <div class="tech-feat">
+          <h4>No App. No Login.</h4>
+          <p>Works on every NFC phone instantly. <strong>iPhone 7+</strong> and all modern Android — tap, verify, access.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tech-right fade-up">
+      <div class="tech-glyph">NFC</div>
+      <div class="spec-item"><span class="sk">Chip</span>       <span class="sv">NXP NTAG 424 DNA</span></div>
+      <div class="spec-item"><span class="sk">Algorithm</span>  <span class="sv">AES-128 · CMAC</span></div>
+      <div class="spec-item"><span class="sk">Standard</span>   <span class="sv">ISO/IEC 14443-4</span></div>
+      <div class="spec-item"><span class="sk">Frequency</span>  <span class="sv">13.56 MHz</span></div>
+      <div class="spec-item"><span class="sk">Key Slot</span>   <span class="sv">SDM File Read Key 1</span></div>
+      <div class="spec-item"><span class="sk">UID Mirror</span> <span class="sv">Enabled</span></div>
+      <div class="spec-item"><span class="sk">Counter</span>    <span class="sv">Enabled · Monotonic</span></div>
+      <div class="spec-item"><span class="sk">iOS</span>        <span class="sv">iPhone 7+ (all)</span></div>
+      <div class="spec-item"><span class="sk">Android</span>    <span class="sv">All NFC devices</span></div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="f-col">
+      <div class="f-logo">
+        <img data-img="logo" src="" alt="Llama Hunter · Lliving Artifacts">
+      </div>
+      <p class="f-copy">© 2026 Llama Hunter Studios<br>Niagara Falls, Canada<br>All rights reserved.</p>
+      <p class="f-copy" style="margin-top:14px;opacity:.35;font-size:.66rem;">Not affiliated with Fortnite or Epic Games.</p>
+    </div>
+    <div class="f-col">
+      <div class="f-eye">This Artifact</div>
+      <div class="f-stat">FNCS Major 1 Summit Edition</div>
+      <p class="f-note">FNCS Major 1 Summit · 2026 · Düsseldorf.<br>FNCS Major 1 Summit Edition</p>
+      <div class="f-uid" id="footer-uid"></div>
+    </div>
+    <div class="f-col">
+      <div class="f-eye">About</div>
+      <p class="f-note">Llama Hunter Studios creates authenticated physical collector artifacts for creators and esports moments that deserve to exist in the real world — secured by hardware cryptography, not promises.</p>
+    </div>
+  </footer>
+
+</div><!-- /#artifact -->
+
+<script>
+(function(){
+  /* ─────────────────────────────────────────────
+     1. Inject all images from CARD_IMAGES config
+  ───────────────────────────────────────────── */
+  const IMG = window.CARD_IMAGES || {};
+  document.querySelectorAll('[data-img]').forEach(el => {
+    const key = el.getAttribute('data-img');
+    if (IMG[key]) el.src = IMG[key];
+  });
+
+  /* ─────────────────────────────────────────────
+     2. URL params → show/hide screens
+  ───────────────────────────────────────────── */
+  const p       = new URLSearchParams(window.location.search);
+  const valid   = p.get('valid');
+  const uid     = p.get('uid');
+  const counter = p.get('counter');
+
+  const elGate = document.getElementById('gate');
+  const elInv  = document.getElementById('invalid-screen');
+  const elArt  = document.getElementById('artifact');
+  const elPill = document.getElementById('nav-pill');
+
+  if (valid === 'true' && uid && counter) {
+    const code = p.get('code');
+    if (!code) {
+      window.location.href = '/index-teal.html';
+      return;
+    }
+
+    // Redeem the one‑time code via the server (no popup)
+    fetch(`/api/redeem?code=${encodeURIComponent(code)}&uid=${encodeURIComponent(uid)}&counter=${encodeURIComponent(counter)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.valid) {
+          elGate.classList.add('hidden');
+          elArt.classList.remove('hidden');
+          populate(uid, counter);
+        } else {
+          window.location.href = '/index-teal.html';
+        }
+      })
+      .catch(() => {
+        window.location.href = '/index-teal.html';
+      });
+  } else {
+    elGate.classList.add('hidden');
+    elInv.classList.remove('hidden');
+    elPill.textContent = '● Rejected';
+    elPill.style.color = '#9b4040';
+    elPill.style.borderColor = 'rgba(155,64,64,.3)';
+  }
+
+  function populate(uid, ctr) {
+    const set = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+    set('hero-uid',  uid);
+    set('back-uid',  uid);
+    set('back-tap',  ctr);
+    set('es-ctr',    ctr);
+    set('auth-uid',  uid);
+    set('auth-tap',  ctr + ' taps');
+    set('ds-taps',   ctr);
+    const fu = document.getElementById('footer-uid');
+    if (fu) fu.textContent = 'UID: ' + uid;
+  }
+
+  /* ─────────────────────────────────────────────
+     3. Card flip
+  ───────────────────────────────────────────── */
+  const c3d = document.getElementById('card3d');
+  const ci  = document.getElementById('cardInner');
+  let flipped    = false;
+  let animTimer  = null;
+
+  if (c3d && ci) {
+    c3d.addEventListener('click', () => {
+      flipped = !flipped;
+      clearTimeout(animTimer);
+
+      ci.style.animation  = 'none';
+      ci.style.transition = [
+        'transform 0.9s cubic-bezier(.4,0,.2,1)',
+        'padding-bottom 0.9s cubic-bezier(.4,0,.2,1)'
+      ].join(', ');
+
+      if (flipped) {
+        c3d.classList.add('flipped');
+        ci.style.transform    = 'rotateY(180deg)';
+        ci.style.paddingBottom = '63%';
+      } else {
+        c3d.classList.remove('flipped');
+        ci.style.transform    = 'rotateY(0deg)';
+        ci.style.paddingBottom = '142%';
+
+        animTimer = setTimeout(() => {
+          if (!flipped) {
+            ci.style.transition    = '';
+            ci.style.transform     = '';
+            ci.style.paddingBottom = '';
+            ci.style.animation     = 'card-float 18s ease-in-out infinite';
+          }
+        }, 950);
+      }
+
+      ci.classList.remove('sheen');
+      void ci.offsetWidth;
+      ci.classList.add('sheen');
+      setTimeout(() => ci.classList.remove('sheen'), 800);
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+     4. Scroll fade-in
+  ───────────────────────────────────────────── */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  /* ─────────────────────────────────────────────
+     5. BTS row — auto-scroll · arrows
+  ───────────────────────────────────────────── */
+  (function(){
+    const row     = document.getElementById('btsRow');
+    const btnPrev = document.getElementById('btsPrev');
+    const btnNext = document.getElementById('btsNext');
+    if (!row) return;
+
+    const SPEED = 0.5;
+    const STEP  = 330;
+    let paused  = false;
+
+    Array.from(row.children).forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      row.appendChild(clone);
+    });
+
+    function tick() {
+      if (!paused) {
+        row.scrollLeft += SPEED;
+        const half = (row.scrollWidth - row.clientWidth) / 2;
+        if (row.scrollLeft >= half) row.scrollLeft -= half;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    row.addEventListener('mouseenter', () => { paused = true; });
+    row.addEventListener('mouseleave', () => { paused = false; });
+    row.addEventListener('touchstart',  () => { paused = true; },  { passive:true });
+    row.addEventListener('touchend',    () => { setTimeout(() => { paused = false; }, 2200); }, { passive:true });
+
+    function smoothScrollBy(amount) {
+      const start = row.scrollLeft, duration = 380, startTs = performance.now();
+      paused = true;
+      function ease(t){ return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
+      function frame(ts) {
+        const p = Math.min((ts - startTs) / duration, 1);
+        row.scrollLeft = start + amount * ease(p);
+        if (p < 1) requestAnimationFrame(frame);
+        else setTimeout(() => { paused = false; }, 600);
+      }
+      requestAnimationFrame(frame);
+    }
+    if (btnPrev) btnPrev.addEventListener('click', () => smoothScrollBy(-STEP));
+    if (btnNext) btnNext.addEventListener('click', () => smoothScrollBy( STEP));
+  })();
+
+  /* ─────────────────────────────────────────────
+     6. Gallery — auto-scroll · arrows · volume
+  ───────────────────────────────────────────── */
+  (function(){
+    const row     = document.getElementById('nfRow');
+    const btnPrev = document.getElementById('nfPrev');
+    const btnNext = document.getElementById('nfNext');
+    const vid     = document.getElementById('nfVid');
+    const volBtn  = document.getElementById('nfVolBtn');
+    const volIcon = document.getElementById('nfVolIcon');
+    if (!row) return;
+
+    const SVG_MUTED = `
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/>
+      <line x1="17" y1="9" x2="23" y2="15"/>`;
+    const SVG_LOUD = `
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>`;
+
+    if (vid && volBtn && volIcon) {
+      volBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        vid.muted = !vid.muted;
+        volIcon.innerHTML = vid.muted ? SVG_MUTED : SVG_LOUD;
+      });
+    }
+
+    const SPEED   = 0.55;
+    const STEP    = 330;
+    let paused    = false;
+    let rafId     = null;
+
+    function tick() {
+      if (!paused) {
+        row.scrollLeft += SPEED;
+        const half = (row.scrollWidth - row.clientWidth) / 2;
+        if (row.scrollLeft >= half) row.scrollLeft -= half;
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    const origCards = Array.from(row.children);
+    origCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+      row.appendChild(clone);
+    });
+
+    rafId = requestAnimationFrame(tick);
+
+    row.addEventListener('mouseenter', () => { paused = true; });
+    row.addEventListener('mouseleave', () => { paused = false; });
+    row.addEventListener('touchstart',  () => { paused = true;  }, { passive:true });
+    row.addEventListener('touchend',    () => { setTimeout(() => { paused = false; }, 2200); }, { passive:true });
+
+    function smoothScrollBy(amount) {
+      const start    = row.scrollLeft;
+      const duration = 380;
+      const startTs  = performance.now();
+      paused = true;
+      function ease(t){ return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
+      function frame(ts) {
+        const p = Math.min((ts - startTs) / duration, 1);
+        row.scrollLeft = start + amount * ease(p);
+        if (p < 1) requestAnimationFrame(frame);
+        else setTimeout(() => { paused = false; }, 600);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    if (btnPrev) btnPrev.addEventListener('click', () => smoothScrollBy(-STEP));
+    if (btnNext) btnNext.addEventListener('click', () => smoothScrollBy( STEP));
+  })();
+
+  /* ─────────────────────────────────────────────
+     7. FNCS Major 1 Summit — auto-scroll · arrows
+  ───────────────────────────────────────────── */
+  (function(){
+    const row     = document.getElementById('summitRow');
+    const btnPrev = document.getElementById('summitPrev');
+    const btnNext = document.getElementById('summitNext');
+    if (!row) return;
+
+    const SPEED = 0.55;
+    const STEP  = 330;
+    let paused  = false;
+
+    Array.from(row.children).forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+      row.appendChild(clone);
+    });
+
+    function tick() {
+      if (!paused) {
+        row.scrollLeft += SPEED;
+        const half = (row.scrollWidth - row.clientWidth) / 2;
+        if (row.scrollLeft >= half) row.scrollLeft -= half;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    row.addEventListener('mouseenter', () => { paused = true; });
+    row.addEventListener('mouseleave', () => { paused = false; });
+    row.addEventListener('touchstart',  () => { paused = true; },  { passive:true });
+    row.addEventListener('touchend',    () => { setTimeout(() => { paused = false; }, 2200); }, { passive:true });
+
+    function smoothScrollBy(amount) {
+      const start = row.scrollLeft, duration = 380, startTs = performance.now();
+      paused = true;
+      function ease(t){ return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
+      function frame(ts) {
+        const p = Math.min((ts - startTs) / duration, 1);
+        row.scrollLeft = start + amount * ease(p);
+        if (p < 1) requestAnimationFrame(frame);
+        else setTimeout(() => { paused = false; }, 600);
+      }
+      requestAnimationFrame(frame);
+    }
+    if (btnPrev) btnPrev.addEventListener('click', () => smoothScrollBy(-STEP));
+    if (btnNext) btnNext.addEventListener('click', () => smoothScrollBy( STEP));
+  })();
+
+})();
+</script>
+</body>
+</html>

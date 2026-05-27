@@ -1,0 +1,13 @@
+{
+  "name": "fresh-tap",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.38.0",
+    "@vercel/kv": "^3.0.0",
+    "node-sdm": "^1.0.0"
+  }
+}
