@@ -620,66 +620,38 @@ footer { border-top:1px solid var(--rule); display:grid; grid-template-columns:1
 <!--
 ╔══════════════════════════════════════════════════════════════╗
 ║                    IMAGE CONFIGURATION                       ║
-║                                                              ║
 ║  Edit the URLs in window.CARD_IMAGES below.                  ║
-║  Paste a full URL, a relative path, or a data: URI.          ║
-║  That's the ONLY place you need to change images.            ║
 ╚══════════════════════════════════════════════════════════════╝
 -->
 <script>
 window.CARD_IMAGES = {
-
-  /* ── Logos ───────────────────────────────────────────────── */
   logo:           'Lliving_Artifacts_Logo.png',
   logoAlt:        'Lliving_Artifacts_Logo.png',
-
-  /* ── Hero Card ───────────────────────────────────────────── */
-  cardFront:      'front-card.jpg',          /* portrait  / vertical   */
-  cardBack:       'FNCS_CARDS_BACK.jpg',     /* landscape / horizontal */
-
-  /* ── Behind The Scenes ───────────────────────────────────── */
+  cardFront:      'front-card.jpg',
+  cardBack:       'FNCS_CARDS_BACK.jpg',
   btsMain:        'images/bts-main-thumb.jpg',
   bts2:           'images/bts-2.jpg',
   bts3:           'images/bts-3.jpg',
   bts4:           'images/bts-4-thumb.jpg',
   bts5:           'images/bts-5-thumb.jpg',
   bts6:           'images/bts-6.jpg',
-
-  /* ── Photo Gallery ───────────────────────────────────────── */
   gallery1:       'VicterV_Qual_Grands_Website.webp',
   gallery2:       'VicterV_FNCS_Pickaxe_Website.png',
   gallery3:       'VicterV_Qual_Heats_Website.png',
   gallery4:       'VicterV_FNCS_Opens_Website.png',
-  gallery5:       '',
-  gallery6:       '',
-  gallery7:       '',
-  gallery8:       '',
-
-  /* ── FNCS Major 1 Summit Section ─────────────────────────── */
   fncsPlaceholder: 'FNCS_Placeholder_Website.png',
-
 };
 </script>
 
 <!-- ══ GATE ══ -->
 <div id="gate">
-  <div class="gate-logo">
-    <img data-img="logo" src="" alt="Llama Hunter · Lliving Artifacts">
-  </div>
+  <div class="gate-logo"><img data-img="logo" src="" alt="Llama Hunter · Lliving Artifacts"></div>
   <div class="gate-vline"></div>
-  <div class="nfc-wrap">
-    <div class="nfc-ring"></div>
-    <div class="nfc-ring"></div>
-    <div class="nfc-ring"></div>
-    <div class="nfc-core"></div>
-  </div>
+  <div class="nfc-wrap"><div class="nfc-ring"></div><div class="nfc-ring"></div><div class="nfc-ring"></div><div class="nfc-core"></div></div>
   <h1 class="gate-h">Tap to <em>Enter</em></h1>
   <p class="gate-caps">Physical Access Only</p>
   <p class="gate-body">This page is sealed to a <strong>physical collector card</strong>. Each tap generates a one-time AES-128 cryptographic token that cannot be copied, forwarded, or guessed.</p>
-  <div class="gate-lock">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    No card · No access · No exceptions
-  </div>
+  <div class="gate-lock"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> No card · No access · No exceptions</div>
 </div>
 
 <!-- ══ INVALID ══ -->
@@ -692,15 +664,9 @@ window.CARD_IMAGES = {
 
 <!-- ══ NAV ══ -->
 <nav>
-  <a class="nav-logo" href="#">
-    <img data-img="logo" src="" alt="Llama Hunter · Lliving Artifacts">
-  </a>
+  <a class="nav-logo" href="#"><img data-img="logo" src="" alt="Llama Hunter · Lliving Artifacts"></a>
   <ul class="nav-links">
-    <li><a href="#auth">Verify</a></li>
-    <li><a href="#bts">Behind Scenes</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#fncs-summit">Summit</a></li>
-    <li><a href="#tech">The Chip</a></li>
+    <li><a href="#auth">Verify</a></li><li><a href="#bts">Behind Scenes</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#fncs-summit">Summit</a></li><li><a href="#tech">The Chip</a></li>
   </ul>
   <div class="nav-pill" id="nav-pill">● Verified</div>
 </nav>
@@ -708,79 +674,37 @@ window.CARD_IMAGES = {
 <!-- ══ ARTIFACT PAGE ══ -->
 <div id="artifact" class="hidden">
 
-  <!-- ── HERO ── -->
   <section class="hero">
     <div class="hero-left">
-      <div class="hero-issue">
-        FNCS MAJOR 1 SUMMIT · 2026 · DÜSSELDORF, GERMANY
-        <span class="accent">LHPCO-FNCSM1S2026-Darm</span>
-      </div>
-      <h1 class="hero-title">
-        Darm
-        <em></em>
-      </h1>
+      <div class="hero-issue">FNCS MAJOR 1 SUMMIT · 2026 · DÜSSELDORF, GERMANY <span class="accent">LHPCO-FNCSM1S2026-Darm</span></div>
+      <h1 class="hero-title">Darm<em></em></h1>
       <p class="hero-sub">One of one</p>
-      <div class="verified-bar">
-        <div class="v-dot"></div>
-        <span class="v-label">Chip Authenticated</span>
-        <span class="v-uid" id="hero-uid">UID: —</span>
-      </div>
+      <div class="verified-bar"><div class="v-dot"></div><span class="v-label">Chip Authenticated</span><span class="v-uid" id="hero-uid">UID: —</span></div>
       <p class="hero-desc">Darm</p>
-      <div class="tags">
-        <span class="tag gold">FIRST EDITION</span>
-        <span class="tag">%%TAG_1%%</span>
-        <span class="tag">%%TAG_2%%</span>
-        <span class="tag">AES-128</span>
-        <span class="tag">NTAG 424 DNA</span>
-      </div>
+      <div class="tags"><span class="tag gold">FIRST EDITION</span><span class="tag">%%TAG_1%%</span><span class="tag">%%TAG_2%%</span><span class="tag">AES-128</span><span class="tag">NTAG 424 DNA</span></div>
     </div>
-
     <div class="hero-right">
-
-      <!-- 3D CARD -->
       <div class="card-3d" id="card3d" title="Click to flip">
         <div class="card-inner" id="cardInner">
-
-          <!-- ── FRONT face (portrait / vertical) ── -->
           <div class="card-face card-front" style="background:#041210;">
             <div class="card-serial">DARM 1/1</div>
             <div class="card-photo" style="position:absolute; inset:0;">
-              <img data-img="cardFront" src="" alt="Card Front"
-                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;display:block;"
-                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <div class="card-photo-empty">
-                <span>🦙</span>
-                <span>card-front.jpg</span>
-              </div>
+              <img data-img="cardFront" src="" alt="Card Front" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;display:block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="card-photo-empty"><span>🦙</span><span>card-front.jpg</span></div>
             </div>
           </div>
-
-          <!-- ── BACK face (landscape / horizontal) ── -->
           <div class="card-face card-back">
-
-            <!-- The card back IS the image — full bleed, full opacity -->
             <img class="back-bg" data-img="cardBack" src="" alt="Card Back">
-
-            <!-- Tiny live-data stamps -->
             <div class="back-uid-stamp" id="back-uid">—</div>
             <div class="back-tap-stamp">TAP #<span id="back-tap">—</span></div>
-
           </div>
-
-        </div><!-- /.card-inner -->
-      </div><!-- /.card-3d -->
-
-      <div class="edition-sep" style="max-width:500px;">
-        <div class="es-line"></div>
-        <div class="es-text">Tap <span id="es-ctr">—</span> · 1/1</div>
-        <div class="es-line"></div>
+        </div>
       </div>
+      <div class="edition-sep" style="max-width:500px;"><div class="es-line"></div><div class="es-text">Tap <span id="es-ctr">—</span> · 1/1</div><div class="es-line"></div></div>
       <div class="card-hint">Click to flip · Hover to pause</div>
-
     </div>
   </section>
 
-  <!-- ── DATA STRIP ── -->
   <div class="data-strip">
     <div class="ds-item"><div class="ds-num">1<span>/1</span></div><div class="ds-label">Edition Size</div></div>
     <div class="ds-item"><div class="ds-num" id="ds-taps">—</div><div class="ds-label">Total Taps</div></div>
@@ -788,367 +712,138 @@ window.CARD_IMAGES = {
     <div class="ds-item"><div class="ds-num">∞</div><div class="ds-label">Verifications</div></div>
   </div>
 
-  <!-- ── AUTH ── -->
   <section class="auth-wrap" id="auth">
-    <div class="auth-left fade-up">
-      <div class="s-eye">Cryptographically Proven</div>
-      <h2 class="s-title">Chip <em>Auth</em></h2>
-      <p class="auth-body">This card doesn't need a blockchain. The NXP NTAG 424 DNA chip performs <strong>hardware cryptographic signing</strong> on every tap. The signature changes every single time — making it physically impossible to copy or replay.</p>
-    </div>
+    <div class="auth-left fade-up"><div class="s-eye">Cryptographically Proven</div><h2 class="s-title">Chip <em>Auth</em></h2><p class="auth-body">This card doesn't need a blockchain. The NXP NTAG 424 DNA chip performs <strong>hardware cryptographic signing</strong> on every tap. The signature changes every single time — making it physically impossible to copy or replay.</p></div>
     <div class="auth-right fade-up">
-      <div class="rec-row"><span class="rk">Status</span>     <span class="rv ok">✓ Authentic</span></div>
-      <div class="rec-row"><span class="rk">Chip UID</span>   <span class="rv mono" id="auth-uid">—</span></div>
-      <div class="rec-row"><span class="rk">Tap Count</span>  <span class="rv gold" id="auth-tap">—</span></div>
-      <div class="rec-row"><span class="rk">Chip Model</span> <span class="rv">NXP NTAG 424 DNA</span></div>
-      <div class="rec-row"><span class="rk">Algorithm</span>  <span class="rv mono">AES-128 · CMAC</span></div>
+      <div class="rec-row"><span class="rk">Status</span><span class="rv ok">✓ Authentic</span></div>
+      <div class="rec-row"><span class="rk">Chip UID</span><span class="rv mono" id="auth-uid">—</span></div>
+      <div class="rec-row"><span class="rk">Tap Count</span><span class="rv gold" id="auth-tap">—</span></div>
+      <div class="rec-row"><span class="rk">Chip Model</span><span class="rv">NXP NTAG 424 DNA</span></div>
+      <div class="rec-row"><span class="rk">Algorithm</span><span class="rv mono">AES-128 · CMAC</span></div>
       <div class="rec-row"><span class="rk">Replay Safe</span><span class="rv ok">Yes — Counter Verified</span></div>
-      <div class="rec-row"><span class="rk">Forgeable</span>  <span class="rv bad">Impossible</span></div>
-      <div class="cert-box">
-        <div class="cert-title">Certified Original</div>
-        <p class="cert-body">This artifact has passed cryptographic hardware verification. The chip confirms it is the genuine physical object — not a screenshot, copy, or forwarded link.</p>
-      </div>
+      <div class="rec-row"><span class="rk">Forgeable</span><span class="rv bad">Impossible</span></div>
+      <div class="cert-box"><div class="cert-title">Certified Original</div><p class="cert-body">This artifact has passed cryptographic hardware verification. The chip confirms it is the genuine physical object — not a screenshot, copy, or forwarded link.</p></div>
     </div>
   </section>
 
-  <!-- ── BEHIND THE SCENES ── -->
   <section class="bts-wrap" id="bts">
-    <div class="bts-header fade-up">
-      <div class="s-eye">Exclusive Holder Access</div>
-      <h2 class="s-title">Behind the <em>Scenes</em></h2>
-      <p class="bts-intro">Darm</p>
-    </div>
-
+    <div class="bts-header fade-up"><div class="s-eye">Exclusive Holder Access</div><h2 class="s-title">Behind the <em>Scenes</em></h2><p class="bts-intro">Darm</p></div>
     <div class="nf-row-outer fade-up">
-
-      <!-- Left arrow + fade -->
-      <div class="nf-edge left">
-        <button class="nf-arrow" id="btsPrev" aria-label="Scroll left">&#8592;</button>
-      </div>
-
-      <!-- Right arrow + fade -->
-      <div class="nf-edge right">
-        <button class="nf-arrow" id="btsNext" aria-label="Scroll right">&#8594;</button>
-      </div>
-
+      <div class="nf-edge left"><button class="nf-arrow" id="btsPrev" aria-label="Scroll left">&#8592;</button></div>
+      <div class="nf-edge right"><button class="nf-arrow" id="btsNext" aria-label="Scroll right">&#8594;</button></div>
       <div class="nf-row" id="btsRow">
-
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="btsMain" src="" alt="%%BTS_MAIN_TITLE%%">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">%%BTS_MAIN_TITLE%%</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">%%BTS_MAIN_TITLE%%</div>
-            <div class="nf-credit">%%BTS_MAIN_TAG%%</div>
-          </div>
-        </div>
-
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="bts2" src="" alt="%%BTS_2_TITLE%%">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">%%BTS_2_TITLE%%</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">%%BTS_2_TITLE%%</div>
-            <div class="nf-credit">%%BTS_2_TAG%%</div>
-          </div>
-        </div>
-
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="bts3" src="" alt="%%BTS_3_TITLE%%">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">%%BTS_3_TITLE%%</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">%%BTS_3_TITLE%%</div>
-            <div class="nf-credit">%%BTS_3_TAG%%</div>
-          </div>
-        </div>
-
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="bts4" src="" alt="%%BTS_4_TITLE%%">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">%%BTS_4_TITLE%%</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">%%BTS_4_TITLE%%</div>
-            <div class="nf-credit">%%BTS_4_TAG%%</div>
-          </div>
-        </div>
-
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="bts5" src="" alt="%%BTS_5_TITLE%%">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">%%BTS_5_TITLE%%</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">%%BTS_5_TITLE%%</div>
-            <div class="nf-credit">%%BTS_5_TAG%%</div>
-          </div>
-        </div>
-
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="bts6" src="" alt="%%BTS_6_TITLE%%">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">%%BTS_6_TITLE%%</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">%%BTS_6_TITLE%%</div>
-            <div class="nf-credit">%%BTS_6_TAG%%</div>
-          </div>
-        </div>
-
-      </div><!-- /.nf-row -->
-    </div><!-- /.nf-row-outer -->
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="btsMain" src="" alt="%%BTS_MAIN_TITLE%%"></div><div class="nf-bar"><div class="nf-bar-title">%%BTS_MAIN_TITLE%%</div></div><div class="nf-overlay"><div class="nf-headline">%%BTS_MAIN_TITLE%%</div><div class="nf-credit">%%BTS_MAIN_TAG%%</div></div></div>
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="bts2" src="" alt="%%BTS_2_TITLE%%"></div><div class="nf-bar"><div class="nf-bar-title">%%BTS_2_TITLE%%</div></div><div class="nf-overlay"><div class="nf-headline">%%BTS_2_TITLE%%</div><div class="nf-credit">%%BTS_2_TAG%%</div></div></div>
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="bts3" src="" alt="%%BTS_3_TITLE%%"></div><div class="nf-bar"><div class="nf-bar-title">%%BTS_3_TITLE%%</div></div><div class="nf-overlay"><div class="nf-headline">%%BTS_3_TITLE%%</div><div class="nf-credit">%%BTS_3_TAG%%</div></div></div>
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="bts4" src="" alt="%%BTS_4_TITLE%%"></div><div class="nf-bar"><div class="nf-bar-title">%%BTS_4_TITLE%%</div></div><div class="nf-overlay"><div class="nf-headline">%%BTS_4_TITLE%%</div><div class="nf-credit">%%BTS_4_TAG%%</div></div></div>
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="bts5" src="" alt="%%BTS_5_TITLE%%"></div><div class="nf-bar"><div class="nf-bar-title">%%BTS_5_TITLE%%</div></div><div class="nf-overlay"><div class="nf-headline">%%BTS_5_TITLE%%</div><div class="nf-credit">%%BTS_5_TAG%%</div></div></div>
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="bts6" src="" alt="%%BTS_6_TITLE%%"></div><div class="nf-bar"><div class="nf-bar-title">%%BTS_6_TITLE%%</div></div><div class="nf-overlay"><div class="nf-headline">%%BTS_6_TITLE%%</div><div class="nf-credit">%%BTS_6_TAG%%</div></div></div>
+      </div>
+    </div>
   </section>
 
-  <!-- ── GALLERY ── -->
   <section class="gallery-wrap" id="gallery">
-    <div class="gallery-header fade-up">
-      <div class="s-eye">Physical Artifact</div>
-      <h2 class="s-title">Road To <em>Major 1 Summit</em></h2>
-    </div>
+    <div class="gallery-header fade-up"><div class="s-eye">Physical Artifact</div><h2 class="s-title">Road To <em>Major 1 Summit</em></h2></div>
     <div class="nf-row-outer fade-up">
-
-      <!-- Left arrow + fade -->
-      <div class="nf-edge left">
-        <button class="nf-arrow" id="nfPrev" aria-label="Scroll left">&#8592;</button>
-      </div>
-
-      <!-- Right arrow + fade -->
-      <div class="nf-edge right">
-        <button class="nf-arrow" id="nfNext" aria-label="Scroll right">&#8594;</button>
-      </div>
-
+      <div class="nf-edge left"><button class="nf-arrow" id="nfPrev" aria-label="Scroll left">&#8592;</button></div>
+      <div class="nf-edge right"><button class="nf-arrow" id="nfNext" aria-label="Scroll right">&#8594;</button></div>
       <div class="nf-row" id="nfRow">
-
-        <!-- 1 -->
-        <a class="nf-card" href="https://x.com/darmfn_/status/2048468524834726216" target="_blank" rel="noopener">
-          <div class="nf-card-inner">
-            <img src="RTS_Website_1.png" alt="7th grand finals (25,000$)">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">7th grand finals (25,000$)</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">7th grand finals (25,000$)</div>
-            <div class="nf-credit">(𝕏/Twitter @darmfn_)</div>
-          </div>
-        </a>
-
-        <!-- 2 -->
-        <a class="nf-card" href="https://x.com/DemusFN/status/2048470862853026093" target="_blank" rel="noopener">
-          <div class="nf-card-inner">
-            <img src="RTS_Website_2.png" alt="Landing here in Summit Lan">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">Landing here in Summit Lan</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">Landing here in Summit Lan</div>
-            <div class="nf-credit">(𝕏/Twitter @DemusFN)</div>
-          </div>
-        </a>
-
-        <!-- 3 -->
-        <a class="nf-card" href="https://x.com/darmfn_/status/2045923910021967938" target="_blank" rel="noopener">
-          <div class="nf-card-inner">
-            <img src="RTS_Website_3.png" alt="qualed grands">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">qualed grands</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">qualed grands</div>
-            <div class="nf-credit">(𝕏/Twitter @darmfn_)</div>
-          </div>
-        </a>
-
-        <!-- 4 -->
-        <a class="nf-card" href="https://x.com/darmfn_/status/2045925024356311158" target="_blank" rel="noopener">
-          <div class="nf-card-inner">
-            <img src="RTS_Website_4.png" alt="landing here in grands 12/12">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">landing here in grands 12/12</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">landing here in grands 12/12</div>
-            <div class="nf-credit">(𝕏/Twitter @darmfn_)</div>
-          </div>
-        </a>
-
-      </div><!-- /.nf-row -->
-    </div><!-- /.nf-row-outer -->
+        <a class="nf-card" href="https://x.com/darmfn_/status/2048468524834726216" target="_blank" rel="noopener"><div class="nf-card-inner"><img src="RTS_Website_1.png" alt="7th grand finals (25,000$)"></div><div class="nf-bar"><div class="nf-bar-title">7th grand finals (25,000$)</div></div><div class="nf-overlay"><div class="nf-headline">7th grand finals (25,000$)</div><div class="nf-credit">(𝕏/Twitter @darmfn_)</div></div></a>
+        <a class="nf-card" href="https://x.com/DemusFN/status/2048470862853026093" target="_blank" rel="noopener"><div class="nf-card-inner"><img src="RTS_Website_2.png" alt="Landing here in Summit Lan"></div><div class="nf-bar"><div class="nf-bar-title">Landing here in Summit Lan</div></div><div class="nf-overlay"><div class="nf-headline">Landing here in Summit Lan</div><div class="nf-credit">(𝕏/Twitter @DemusFN)</div></div></a>
+        <a class="nf-card" href="https://x.com/darmfn_/status/2045923910021967938" target="_blank" rel="noopener"><div class="nf-card-inner"><img src="RTS_Website_3.png" alt="qualed grands"></div><div class="nf-bar"><div class="nf-bar-title">qualed grands</div></div><div class="nf-overlay"><div class="nf-headline">qualed grands</div><div class="nf-credit">(𝕏/Twitter @darmfn_)</div></div></a>
+        <a class="nf-card" href="https://x.com/darmfn_/status/2045925024356311158" target="_blank" rel="noopener"><div class="nf-card-inner"><img src="RTS_Website_4.png" alt="landing here in grands 12/12"></div><div class="nf-bar"><div class="nf-bar-title">landing here in grands 12/12</div></div><div class="nf-overlay"><div class="nf-headline">landing here in grands 12/12</div><div class="nf-credit">(𝕏/Twitter @darmfn_)</div></div></a>
+      </div>
+    </div>
   </section>
 
-  <!-- ── FNCS MAJOR 1 SUMMIT ── -->
   <section class="gallery-wrap" id="fncs-summit">
-    <div class="gallery-header fade-up">
-      <div class="s-eye">Düsseldorf · 2026</div>
-      <h2 class="s-title">FNCS <em>Major 1 Summit</em></h2>
-    </div>
+    <div class="gallery-header fade-up"><div class="s-eye">Düsseldorf · 2026</div><h2 class="s-title">FNCS <em>Major 1 Summit</em></h2></div>
     <div class="nf-row-outer fade-up">
-
-      <!-- Left arrow + fade -->
-      <div class="nf-edge left">
-        <button class="nf-arrow" id="summitPrev" aria-label="Scroll left">&#8592;</button>
-      </div>
-
-      <!-- Right arrow + fade -->
-      <div class="nf-edge right">
-        <button class="nf-arrow" id="summitNext" aria-label="Scroll right">&#8594;</button>
-      </div>
-
+      <div class="nf-edge left"><button class="nf-arrow" id="summitPrev" aria-label="Scroll left">&#8592;</button></div>
+      <div class="nf-edge right"><button class="nf-arrow" id="summitNext" aria-label="Scroll right">&#8594;</button></div>
       <div class="nf-row" id="summitRow">
-
-        <!-- 1 -->
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
-            <div class="nf-credit">Düsseldorf, Germany</div>
-          </div>
-        </div>
-
-        <!-- 2 -->
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
-            <div class="nf-credit">Düsseldorf, Germany</div>
-          </div>
-        </div>
-
-        <!-- 3 -->
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
-            <div class="nf-credit">Düsseldorf, Germany</div>
-          </div>
-        </div>
-
-        <!-- 4 -->
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
-            <div class="nf-credit">Düsseldorf, Germany</div>
-          </div>
-        </div>
-
-        <!-- 5 -->
-        <div class="nf-card">
-          <div class="nf-card-inner">
-            <img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit">
-          </div>
-          <div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div>
-          <div class="nf-overlay">
-            <div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div>
-            <div class="nf-credit">Düsseldorf, Germany</div>
-          </div>
-        </div>
-
-      </div><!-- /.nf-row -->
-    </div><!-- /.nf-row-outer -->
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit"></div><div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div><div class="nf-overlay"><div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div><div class="nf-credit">Düsseldorf, Germany</div></div></div>
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit"></div><div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div><div class="nf-overlay"><div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div><div class="nf-credit">Düsseldorf, Germany</div></div></div>
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit"></div><div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div><div class="nf-overlay"><div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div><div class="nf-credit">Düsseldorf, Germany</div></div></div>
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit"></div><div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div><div class="nf-overlay"><div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div><div class="nf-credit">Düsseldorf, Germany</div></div></div>
+        <div class="nf-card"><div class="nf-card-inner"><img data-img="fncsPlaceholder" src="" alt="FNCS Major 1 Summit"></div><div class="nf-bar"><div class="nf-bar-title">FNCS MAJOR 1 SUMMIT 2026</div></div><div class="nf-overlay"><div class="nf-headline">FNCS MAJOR 1 SUMMIT 2026</div><div class="nf-credit">Düsseldorf, Germany</div></div></div>
+      </div>
+    </div>
   </section>
 
   <section class="tech-wrap" id="tech">
-    <div class="tech-left fade-up">
-      <div class="s-eye">Why It Cannot Be Faked</div>
-      <h2 class="s-title">The <em>Chip</em></h2>
+    <div class="tech-left fade-up"><div class="s-eye">Why It Cannot Be Faked</div><h2 class="s-title">The <em>Chip</em></h2>
       <div class="tech-feats">
-        <div class="tech-feat">
-          <h4>Cryptographic Signing</h4>
-          <p>Every tap sends a unique <strong>CMAC signature</strong> generated from the chip's locked AES-128 key. The server rejects anything not freshly signed.</p>
-        </div>
-        <div class="tech-feat">
-          <h4>Monotonic Counter</h4>
-          <p>The chip's counter increments every read and <strong>can never decrease</strong>. Replayed links are rejected instantly.</p>
-        </div>
-        <div class="tech-feat">
-          <h4>Hardware-Locked Key</h4>
-          <p>The AES key lives in the chip's <strong>secure memory</strong> — it cannot be read out even with professional equipment. The card is the key.</p>
-        </div>
-        <div class="tech-feat">
-          <h4>No App. No Login.</h4>
-          <p>Works on every NFC phone instantly. <strong>iPhone 7+</strong> and all modern Android — tap, verify, access.</p>
-        </div>
+        <div class="tech-feat"><h4>Cryptographic Signing</h4><p>Every tap sends a unique <strong>CMAC signature</strong> generated from the chip's locked AES-128 key. The server rejects anything not freshly signed.</p></div>
+        <div class="tech-feat"><h4>Monotonic Counter</h4><p>The chip's counter increments every read and <strong>can never decrease</strong>. Replayed links are rejected instantly.</p></div>
+        <div class="tech-feat"><h4>Hardware-Locked Key</h4><p>The AES key lives in the chip's <strong>secure memory</strong> — it cannot be read out even with professional equipment. The card is the key.</p></div>
+        <div class="tech-feat"><h4>No App. No Login.</h4><p>Works on every NFC phone instantly. <strong>iPhone 7+</strong> and all modern Android — tap, verify, access.</p></div>
       </div>
     </div>
     <div class="tech-right fade-up">
       <div class="tech-glyph">NFC</div>
-      <div class="spec-item"><span class="sk">Chip</span>       <span class="sv">NXP NTAG 424 DNA</span></div>
-      <div class="spec-item"><span class="sk">Algorithm</span>  <span class="sv">AES-128 · CMAC</span></div>
-      <div class="spec-item"><span class="sk">Standard</span>   <span class="sv">ISO/IEC 14443-4</span></div>
-      <div class="spec-item"><span class="sk">Frequency</span>  <span class="sv">13.56 MHz</span></div>
-      <div class="spec-item"><span class="sk">Key Slot</span>   <span class="sv">SDM File Read Key 1</span></div>
-      <div class="spec-item"><span class="sk">UID Mirror</span> <span class="sv">Enabled</span></div>
-      <div class="spec-item"><span class="sk">Counter</span>    <span class="sv">Enabled · Monotonic</span></div>
-      <div class="spec-item"><span class="sk">iOS</span>        <span class="sv">iPhone 7+ (all)</span></div>
-      <div class="spec-item"><span class="sk">Android</span>    <span class="sv">All NFC devices</span></div>
+      <div class="spec-item"><span class="sk">Chip</span><span class="sv">NXP NTAG 424 DNA</span></div>
+      <div class="spec-item"><span class="sk">Algorithm</span><span class="sv">AES-128 · CMAC</span></div>
+      <div class="spec-item"><span class="sk">Standard</span><span class="sv">ISO/IEC 14443-4</span></div>
+      <div class="spec-item"><span class="sk">Frequency</span><span class="sv">13.56 MHz</span></div>
+      <div class="spec-item"><span class="sk">Key Slot</span><span class="sv">SDM File Read Key 1</span></div>
+      <div class="spec-item"><span class="sk">UID Mirror</span><span class="sv">Enabled</span></div>
+      <div class="spec-item"><span class="sk">Counter</span><span class="sv">Enabled · Monotonic</span></div>
+      <div class="spec-item"><span class="sk">iOS</span><span class="sv">iPhone 7+ (all)</span></div>
+      <div class="spec-item"><span class="sk">Android</span><span class="sv">All NFC devices</span></div>
     </div>
   </section>
 
-  <!-- ── FOOTER ── -->
   <footer>
-    <div class="f-col">
-      <div class="f-logo">
-        <img data-img="logo" src="" alt="Llama Hunter · Lliving Artifacts">
-      </div>
-      <p class="f-copy">© 2026 Llama Hunter Studios<br>Niagara Falls, Canada<br>All rights reserved.</p>
-      <p class="f-copy" style="margin-top:10px;"><a href="https://www.LLAMAHUNTER.com" target="_blank" rel="noopener" style="font-weight:700;color:inherit;text-decoration:none;letter-spacing:.03em;">www.LLAMAHUNTER.com</a></p>
-      <p class="f-copy" style="margin-top:14px;opacity:.35;font-size:.66rem;">Not affiliated with Fortnite or Epic Games.</p>
-    </div>
-    <div class="f-col">
-      <div class="f-eye">This Artifact</div>
-      <div class="f-stat">FNCS Major 1 Summit Edition</div>
-      <p class="f-note">FNCS Major 1 Summit · 2026 · Düsseldorf.<br>FNCS Major 1 Summit Edition</p>
-      <div class="f-uid" id="footer-uid"></div>
-    </div>
-    <div class="f-col">
-      <div class="f-eye">About</div>
-      <p class="f-note">Llama Hunter Studios creates authenticated physical collector artifacts for creators and esports moments that deserve to exist in the real world — secured by hardware cryptography, not promises.</p>
-    </div>
+    <div class="f-col"><div class="f-logo"><img data-img="logo" src="" alt="Llama Hunter · Lliving Artifacts"></div><p class="f-copy">© 2026 Llama Hunter Studios<br>Niagara Falls, Canada<br>All rights reserved.</p><p class="f-copy" style="margin-top:10px;"><a href="https://www.LLAMAHUNTER.com" target="_blank" rel="noopener" style="font-weight:700;color:inherit;text-decoration:none;letter-spacing:.03em;">www.LLAMAHUNTER.com</a></p><p class="f-copy" style="margin-top:14px;opacity:.35;font-size:.66rem;">Not affiliated with Fortnite or Epic Games.</p></div>
+    <div class="f-col"><div class="f-eye">This Artifact</div><div class="f-stat">FNCS Major 1 Summit Edition</div><p class="f-note">FNCS Major 1 Summit · 2026 · Düsseldorf.<br>FNCS Major 1 Summit Edition</p><div class="f-uid" id="footer-uid"></div></div>
+    <div class="f-col"><div class="f-eye">About</div><p class="f-note">Llama Hunter Studios creates authenticated physical collector artifacts for creators and esports moments that deserve to exist in the real world — secured by hardware cryptography, not promises.</p></div>
   </footer>
-
-</div><!-- /#artifact -->
+</div>
 
 <script>
 (function(){
-
-  /* ─────────────────────────────────────────────
-     1. Inject all images from CARD_IMAGES config
-  ───────────────────────────────────────────── */
+  /* 1. Inject images */
   const IMG = window.CARD_IMAGES || {};
   document.querySelectorAll('[data-img]').forEach(el => {
     const key = el.getAttribute('data-img');
     if (IMG[key]) el.src = IMG[key];
   });
 
-  /* ─────────────────────────────────────────────
-     2. URL params → show/hide screens
-  ───────────────────────────────────────────── */
+  /* 2. Show/hide based on URL params */
   const p       = new URLSearchParams(window.location.search);
   const valid   = p.get('valid');
-  const uid     = p.get('uid')     || 'A3:FF:2C:8B:01:D4:7E';
-  const counter = p.get('counter') || '47';
+  const uid     = p.get('uid');
+  const counter = p.get('counter');
 
   const elGate = document.getElementById('gate');
   const elInv  = document.getElementById('invalid-screen');
   const elArt  = document.getElementById('artifact');
   const elPill = document.getElementById('nav-pill');
 
-  if (valid === 'true' || valid === null) {
-    elGate.classList.add('hidden');
-    elArt.classList.remove('hidden');
-    populate(uid, counter);
-  } else if (valid === 'false') {
+  if (valid === 'true' && uid && counter) {
+    const code = p.get('code');
+    if (!code) {
+      window.location.href = '/index-teal.html';
+      return;
+    }
+
+    // Redeem the one‑time code
+    fetch(`/api/redeem?code=${encodeURIComponent(code)}&uid=${encodeURIComponent(uid)}&counter=${encodeURIComponent(counter)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.valid) {
+          elGate.classList.add('hidden');
+          elArt.classList.remove('hidden');
+          populate(uid, counter);
+        } else {
+          window.location.href = '/index-teal.html';
+        }
+      })
+      .catch(() => {
+        window.location.href = '/index-teal.html';
+      });
+  } else {
     elGate.classList.add('hidden');
     elInv.classList.remove('hidden');
     elPill.textContent = '● Rejected';
@@ -1169,41 +864,25 @@ window.CARD_IMAGES = {
     if (fu) fu.textContent = 'UID: ' + uid;
   }
 
-  /* ─────────────────────────────────────────────
-     3. Card flip — portrait ↔ landscape
-        · rotateY transition
-        · aspect-ratio morph (padding-bottom)
-        · gold sheen sweep
-  ───────────────────────────────────────────── */
+  /* 3. Card flip (unchanged) */
   const c3d = document.getElementById('card3d');
   const ci  = document.getElementById('cardInner');
   let flipped    = false;
   let animTimer  = null;
-
   if (c3d && ci) {
     c3d.addEventListener('click', () => {
       flipped = !flipped;
       clearTimeout(animTimer);
-
-      /* Stop float animation & apply transition */
       ci.style.animation  = 'none';
-      ci.style.transition = [
-        'transform 0.9s cubic-bezier(.4,0,.2,1)',
-        'padding-bottom 0.9s cubic-bezier(.4,0,.2,1)'
-      ].join(', ');
-
+      ci.style.transition = 'transform 0.9s cubic-bezier(.4,0,.2,1), padding-bottom 0.9s cubic-bezier(.4,0,.2,1)';
       if (flipped) {
-        /* → show back (landscape) */
         c3d.classList.add('flipped');
         ci.style.transform    = 'rotateY(180deg)';
         ci.style.paddingBottom = '63%';
       } else {
-        /* → show front (portrait) */
         c3d.classList.remove('flipped');
         ci.style.transform    = 'rotateY(0deg)';
         ci.style.paddingBottom = '142%';
-
-        /* Re-enable float animation after transition */
         animTimer = setTimeout(() => {
           if (!flipped) {
             ci.style.transition    = '';
@@ -1213,223 +892,83 @@ window.CARD_IMAGES = {
           }
         }, 950);
       }
-
-      /* Gold sheen sweep */
       ci.classList.remove('sheen');
-      void ci.offsetWidth; /* reflow */
+      void ci.offsetWidth;
       ci.classList.add('sheen');
       setTimeout(() => ci.classList.remove('sheen'), 800);
     });
   }
 
-  /* ─────────────────────────────────────────────
-     4. Scroll fade-in
-  ───────────────────────────────────────────── */
+  /* 4. Fade-in (unchanged) */
   const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.06 });
   document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
 
-  /* ─────────────────────────────────────────────
-     5. BTS row — auto-scroll · arrows
-  ───────────────────────────────────────────── */
+  /* 5. BTS row (unchanged) */
   (function(){
-    const row     = document.getElementById('btsRow');
-    const btnPrev = document.getElementById('btsPrev');
-    const btnNext = document.getElementById('btsNext');
+    const row = document.getElementById('btsRow');
+    const btnPrev = document.getElementById('btsPrev'), btnNext = document.getElementById('btsNext');
     if (!row) return;
-
-    const SPEED = 0.5;
-    const STEP  = 330;
-    let paused  = false;
-
-    /* duplicate cards for seamless loop */
-    Array.from(row.children).forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      row.appendChild(clone);
-    });
-
-    function tick() {
-      if (!paused) {
-        row.scrollLeft += SPEED;
-        const half = (row.scrollWidth - row.clientWidth) / 2;
-        if (row.scrollLeft >= half) row.scrollLeft -= half;
-      }
-      requestAnimationFrame(tick);
-    }
+    const SPEED = 0.5, STEP = 330; let paused = false;
+    Array.from(row.children).forEach(card => { const clone = card.cloneNode(true); clone.setAttribute('aria-hidden','true'); row.appendChild(clone); });
+    function tick() { if(!paused){ row.scrollLeft += SPEED; const half = (row.scrollWidth - row.clientWidth)/2; if(row.scrollLeft >= half) row.scrollLeft -= half; } requestAnimationFrame(tick); }
     requestAnimationFrame(tick);
-
     row.addEventListener('mouseenter', () => { paused = true; });
     row.addEventListener('mouseleave', () => { paused = false; });
-    row.addEventListener('touchstart',  () => { paused = true; },  { passive:true });
+    row.addEventListener('touchstart',  () => { paused = true; }, { passive:true });
     row.addEventListener('touchend',    () => { setTimeout(() => { paused = false; }, 2200); }, { passive:true });
+    function smoothScrollBy(amount) { const start = row.scrollLeft, duration = 380, startTs = performance.now(); paused = true; function ease(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; } function frame(ts) { const p = Math.min((ts-startTs)/duration, 1); row.scrollLeft = start + amount * ease(p); if(p<1) requestAnimationFrame(frame); else setTimeout(() => { paused = false; }, 600); } requestAnimationFrame(frame); }
+    if(btnPrev) btnPrev.addEventListener('click', () => smoothScrollBy(-STEP));
+    if(btnNext) btnNext.addEventListener('click', () => smoothScrollBy( STEP));
+  })();
 
-    function smoothScrollBy(amount) {
-      const start = row.scrollLeft, duration = 380, startTs = performance.now();
-      paused = true;
-      function ease(t){ return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
-      function frame(ts) {
-        const p = Math.min((ts - startTs) / duration, 1);
-        row.scrollLeft = start + amount * ease(p);
-        if (p < 1) requestAnimationFrame(frame);
-        else setTimeout(() => { paused = false; }, 600);
-      }
-      requestAnimationFrame(frame);
-    }
-    if (btnPrev) btnPrev.addEventListener('click', () => smoothScrollBy(-STEP));
-    if (btnNext) btnNext.addEventListener('click', () => smoothScrollBy( STEP));
-  })(); // end BTS IIFE
-
-  /* ─────────────────────────────────────────────
-     6. Gallery — auto-scroll · arrows · volume
-  ───────────────────────────────────────────── */
+  /* 6. Gallery (unchanged) */
   (function(){
-    const row     = document.getElementById('nfRow');
-    const btnPrev = document.getElementById('nfPrev');
-    const btnNext = document.getElementById('nfNext');
+    const row = document.getElementById('nfRow');
+    const btnPrev = document.getElementById('nfPrev'), btnNext = document.getElementById('nfNext');
     if (!row) return;
-
-    /* ── SVG icons for volume ── */
-    const SVG_MUTED = `
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-      <line x1="23" y1="9" x2="17" y2="15"/>
-      <line x1="17" y1="9" x2="23" y2="15"/>`;
-    const SVG_LOUD = `
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>`;
-
-    /* ── Wire up every .nf-vol button to its sibling <video> ── */
+    const SVG_MUTED = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+    const SVG_LOUD = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>';
     row.querySelectorAll('.nf-vol').forEach(function(btn) {
       const card = btn.closest('.nf-card');
       const vid  = card ? card.querySelector('video') : null;
       const icon = btn.querySelector('.nf-vol-icon');
       if (!vid || !icon) return;
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        vid.muted = !vid.muted;
-        icon.innerHTML = vid.muted ? SVG_MUTED : SVG_LOUD;
-      });
+      btn.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); vid.muted = !vid.muted; icon.innerHTML = vid.muted ? SVG_MUTED : SVG_LOUD; });
     });
-
-    /* ── Auto-scroll (slow drift, pause on hover) ── */
-    const SPEED   = 0.55;   /* px per frame */
-    const STEP    = 330;    /* arrow jump px */
-    let paused    = false;
-    let rafId     = null;
-
-    function tick() {
-      if (!paused) {
-        row.scrollLeft += SPEED;
-        /* seamless loop: when we've scrolled past halfway, jump back */
-        const half = (row.scrollWidth - row.clientWidth) / 2;
-        if (row.scrollLeft >= half) {
-          row.scrollLeft -= half;
-        }
-      }
-      rafId = requestAnimationFrame(tick);
-    }
-
-    /* duplicate cards for seamless infinite loop */
-    const origCards = Array.from(row.children);
-    origCards.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      /* strip IDs from clones to avoid duplicates */
-      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
-      row.appendChild(clone);
-    });
-
+    const SPEED = 0.55, STEP = 330; let paused = false, rafId = null;
+    function tick() { if(!paused){ row.scrollLeft += SPEED; const half = (row.scrollWidth - row.clientWidth)/2; if(row.scrollLeft >= half) row.scrollLeft -= half; } rafId = requestAnimationFrame(tick); }
+    Array.from(row.children).forEach(card => { const clone = card.cloneNode(true); clone.setAttribute('aria-hidden','true'); clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id')); row.appendChild(clone); });
     rafId = requestAnimationFrame(tick);
-
-    /* pause when hovering the row */
     row.addEventListener('mouseenter', () => { paused = true; });
     row.addEventListener('mouseleave', () => { paused = false; });
-    row.addEventListener('touchstart',  () => { paused = true;  }, { passive:true });
-    row.addEventListener('touchend',    () => {
-      setTimeout(() => { paused = false; }, 2200);
-    }, { passive:true });
-
-    /* ── Arrow buttons (smooth manual scroll) ── */
-    function smoothScrollBy(amount) {
-      const start    = row.scrollLeft;
-      const target   = start + amount;
-      const duration = 380;
-      const startTs  = performance.now();
-      paused = true;
-      function ease(t){ return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
-      function frame(ts) {
-        const p = Math.min((ts - startTs) / duration, 1);
-        row.scrollLeft = start + amount * ease(p);
-        if (p < 1) { requestAnimationFrame(frame); }
-        else { setTimeout(() => { paused = false; }, 600); }
-      }
-      requestAnimationFrame(frame);
-    }
-
-    if (btnPrev) btnPrev.addEventListener('click', () => smoothScrollBy(-STEP));
-    if (btnNext) btnNext.addEventListener('click', () => smoothScrollBy( STEP));
-
-  })(); // end gallery IIFE
-
-  /* ─────────────────────────────────────────────
-     7. FNCS Major 1 Summit — auto-scroll · arrows
-  ───────────────────────────────────────────── */
-  (function(){
-    const row     = document.getElementById('summitRow');
-    const btnPrev = document.getElementById('summitPrev');
-    const btnNext = document.getElementById('summitNext');
-    if (!row) return;
-
-    const SPEED = 0.55;
-    const STEP  = 330;
-    let paused  = false;
-
-    /* duplicate cards for seamless infinite loop */
-    Array.from(row.children).forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
-      row.appendChild(clone);
-    });
-
-    function tick() {
-      if (!paused) {
-        row.scrollLeft += SPEED;
-        const half = (row.scrollWidth - row.clientWidth) / 2;
-        if (row.scrollLeft >= half) row.scrollLeft -= half;
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-
-    row.addEventListener('mouseenter', () => { paused = true; });
-    row.addEventListener('mouseleave', () => { paused = false; });
-    row.addEventListener('touchstart',  () => { paused = true; },  { passive:true });
+    row.addEventListener('touchstart',  () => { paused = true; }, { passive:true });
     row.addEventListener('touchend',    () => { setTimeout(() => { paused = false; }, 2200); }, { passive:true });
+    function smoothScrollBy(amount) { const start = row.scrollLeft, duration = 380, startTs = performance.now(); paused = true; function ease(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; } function frame(ts) { const p = Math.min((ts-startTs)/duration, 1); row.scrollLeft = start + amount * ease(p); if(p<1) requestAnimationFrame(frame); else setTimeout(() => { paused = false; }, 600); } requestAnimationFrame(frame); }
+    if(btnPrev) btnPrev.addEventListener('click', () => smoothScrollBy(-STEP));
+    if(btnNext) btnNext.addEventListener('click', () => smoothScrollBy( STEP));
+  })();
 
-    function smoothScrollBy(amount) {
-      const start = row.scrollLeft, duration = 380, startTs = performance.now();
-      paused = true;
-      function ease(t){ return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
-      function frame(ts) {
-        const p = Math.min((ts - startTs) / duration, 1);
-        row.scrollLeft = start + amount * ease(p);
-        if (p < 1) requestAnimationFrame(frame);
-        else setTimeout(() => { paused = false; }, 600);
-      }
-      requestAnimationFrame(frame);
-    }
-    if (btnPrev) btnPrev.addEventListener('click', () => smoothScrollBy(-STEP));
-    if (btnNext) btnNext.addEventListener('click', () => smoothScrollBy( STEP));
+  /* 7. Summit (unchanged) */
+  (function(){
+    const row = document.getElementById('summitRow');
+    const btnPrev = document.getElementById('summitPrev'), btnNext = document.getElementById('summitNext');
+    if (!row) return;
+    const SPEED = 0.55, STEP = 330; let paused = false;
+    Array.from(row.children).forEach(card => { const clone = card.cloneNode(true); clone.setAttribute('aria-hidden','true'); clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id')); row.appendChild(clone); });
+    function tick() { if(!paused){ row.scrollLeft += SPEED; const half = (row.scrollWidth - row.clientWidth)/2; if(row.scrollLeft >= half) row.scrollLeft -= half; } requestAnimationFrame(tick); }
+    requestAnimationFrame(tick);
+    row.addEventListener('mouseenter', () => { paused = true; });
+    row.addEventListener('mouseleave', () => { paused = false; });
+    row.addEventListener('touchstart',  () => { paused = true; }, { passive:true });
+    row.addEventListener('touchend',    () => { setTimeout(() => { paused = false; }, 2200); }, { passive:true });
+    function smoothScrollBy(amount) { const start = row.scrollLeft, duration = 380, startTs = performance.now(); paused = true; function ease(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; } function frame(ts) { const p = Math.min((ts-startTs)/duration, 1); row.scrollLeft = start + amount * ease(p); if(p<1) requestAnimationFrame(frame); else setTimeout(() => { paused = false; }, 600); } requestAnimationFrame(frame); }
+    if(btnPrev) btnPrev.addEventListener('click', () => smoothScrollBy(-STEP));
+    if(btnNext) btnNext.addEventListener('click', () => smoothScrollBy( STEP));
+  })();
 
-  })(); // end summit IIFE
-
-})(); // end main IIFE
+})();
 </script>
 </body>
 </html>

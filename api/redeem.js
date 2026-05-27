@@ -16,13 +16,13 @@ export default async function handler(req, res) {
       return res.status(400).json({ valid: false, error: 'Missing parameters' });
     }
 
-    // Look up the one‑time code
+    // Look up the one‑time code in Upstash
     const data = await redis.get(`code:${code}`);
     if (!data) {
       return res.status(200).json({ valid: false, reason: 'invalid_code' });
     }
 
-    // Verify the stored UID and counter match the URL
+    // Verify the stored UID and counter match the URL parameters
     if (data.uid !== uid || data.counter !== parseInt(counter)) {
       return res.status(200).json({ valid: false, reason: 'tampered' });
     }
